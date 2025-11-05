@@ -1,0 +1,309 @@
+================================================================================
+TK11 RÁDIÓ PROGRAMOZÁS HIBAELHÁRÍTÁS
+================================================================================
+
+PROBLÉMA:
+  TK11_nover.exe elfogadta a patched firmware-t ✓
+  DE nem indul el a feltöltés a rádióra ✗
+
+================================================================================
+LEHETSÉGES OKOK ÉS MEGOLDÁSOK
+================================================================================
+
+[OK 1] RÁDIÓ NINCS PROGRAMMING MÓDBAN
+--------------------------------------
+A TK11 rádiónak speciális FIRMWARE UPDATE módba kell lépnie!
+
+STANDARD MÓDBA LÉPÉS (próbáld ezeket):
+
+Módszer A: Gombkombináció bootkor
+  1. Kapcsold KI a rádiót
+  2. Tartsd nyomva: PTT + [valamely gomb] (pl. UP, DOWN, MENU)
+  3. Közben kapcsold BE a rádiót
+  4. Tartsd 3-5 másodpercig
+  5. Képernyőn megjelenik: "PROG" vagy "UPDATE" vagy villog
+
+Módszer B: Menü opció
+  1. Rádió bekapcsolva
+  2. Menü → Settings → Advanced
+  3. Keress "Firmware" vagy "Update" opciót
+  4. Enter → Rádió átkapcsol programming módba
+
+Módszer C: TK11.exe-ből
+  1. TK11.exe → Tools → Enter Programming Mode
+  2. Vagy: Radio → Firmware Mode
+  3. Szoftver parancsot küld a rádiónak
+
+Módszer D: Dokumentáció
+  1. Nézd meg a TK11 manuálját
+  2. "Firmware Update" vagy "Programming Mode" fejezet
+  3. Pontos gombkombináció leírása
+
+JELEK HOGY PROGRAMMING MÓDBAN VAN:
+  - Kijelző üres vagy "PROG" felirat
+  - LED világít/villog
+  - Rádió nem működik normálisan
+
+
+[OK 2] COM PORT NEM MEGFELELŐ
+------------------------------
+A TK11.exe nem találja a rádió COM portját
+
+ELLENŐRZÉS:
+
+1. Windows Device Manager
+   Win+X → Device Manager → Ports (COM & LPT)
+
+   Keress:
+   - "Prolific USB-to-Serial" vagy
+   - "CH340" vagy
+   - "FTDI" vagy
+   - "Silicon Labs CP210x"
+
+   Megjegyzés: COM3, COM4, COM5, stb.
+
+2. TK11.exe Port beállítás
+   Settings → Port → Válaszd ki a helyes COM portot
+
+3. Kábel Driver telepítése
+   Ha nincs COM port listázva:
+   - Telepítsd a programozó kábel drivert
+   - CH340 driver: googled "CH340 driver Windows"
+   - Prolific driver: googled "Prolific PL2303 driver"
+
+4. Kábel tesztelés
+   - Dugd ki és dugd vissza a USB kábelt
+   - Ellenőrizd Device Manager-ben megjelent-e
+
+
+[OK 3] KÁBEL NINCS CSATLAKOZTATVA HELYESEN
+-------------------------------------------
+A programozó kábel csatlakozása kritikus
+
+ELLENŐRZÉS:
+
+1. Rádió oldali csatlakozó
+   - 2.5mm vagy 3.5mm jack?
+   - Teljesen be van dugva?
+   - Nem laza?
+
+2. PC oldali USB
+   - Teljesen csatlakoztatva?
+   - Próbáld másik USB portot
+
+3. Kábel típus
+   - TK11-hez kompatibilis programozó kábel?
+   - Nem csak audio kábel!
+   - Kell: UART/Serial programozó kábel
+
+
+[OK 4] RÁDIÓ AKKU SZINT ALACSONY
+---------------------------------
+Firmware update csak teljesen töltött akkuval!
+
+ELLENŐRZÉS:
+  - Akku szint > 80%?
+  - Vagy csatlakoztass töltőt feltöltés alatt
+  - Vagy használj külső tápegységet
+
+
+[OK 5] TK11.EXE BEÁLLÍTÁSOK
+----------------------------
+A szoftver beállításai nem megfelelőek
+
+ELLENŐRZÉS:
+
+1. Connection Settings
+   - Port: Helyes COM port?
+   - Baud rate: 9600, 19200, 38400, vagy 115200?
+   - Data bits: 8
+   - Stop bits: 1
+   - Parity: None
+   - Flow control: None vagy Hardware
+
+2. Radio Model
+   - Model: TK11 kiválasztva?
+   - Version: Megfelelő?
+
+3. Permissions
+   - Futtasd TK11.exe-t Administrator módban
+   - Jobb klikk → Run as Administrator
+
+
+[OK 6] WINDOWS JOGOSULTSÁGOK
+-----------------------------
+Windows blokkolja a COM port hozzáférést
+
+MEGOLDÁS:
+  1. Zárd be az összes terminál/serial programot
+  2. TK11.exe → Run as Administrator
+  3. Antivírus: ideiglenesen kikapcsolni?
+
+
+[OK 7] FIRMWARE FÁJL MÉRETE/FORMÁTUMA
+--------------------------------------
+A firmware fájl nem megfelelő formátumú lehet
+
+ELLENŐRZÉS:
+  1. Fájl méret: 357,976 bytes?
+     cd E:\AI\tk11\patched_firmware
+     dir TK11_PATCHED_USB_TX_ENABLE_*.bin
+
+  2. Fájl nem sérült?
+     - Próbáld az eredeti firmware-t betölteni
+     - Ha az is nem megy → más probléma
+     - Ha az megy → patched firmware probléma
+
+================================================================================
+DIAGNOSZTIKAI LÉPÉSEK
+================================================================================
+
+LÉPÉS 1: TESZTELD AZ EREDETI FIRMWARE-T
+----------------------------------------
+1. TK11_nover.exe megnyitása
+2. Betöltés: TK11_v5.00.09_ENG.bin (eredeti)
+3. Próbáld feltölteni a rádióra
+
+Ha AZ SEM MEGY:
+  → Rádió kommunikációs probléma
+  → Nézd OK 1-6 megoldásokat
+
+Ha AZ MEGY:
+  → Patched firmware probléma
+  → Lehetséges checksum hiba
+
+
+LÉPÉS 2: ELLENŐRIZD A COM PORTOT
+---------------------------------
+1. Device Manager → Ports
+2. Van listázva COM port?
+3. Melyik? (COM3, COM4, stb.)
+4. TK11.exe-ben ez be van állítva?
+
+
+LÉPÉS 3: PROGRAMMING MODE AKTIVÁLÁS
+------------------------------------
+KRITIKUS: Rádiónak programming módban kell lennie!
+
+1. Próbáld a gombkombinációkat (OK 1)
+2. Figyeld a kijelzőt
+3. Ha változás van → jó irányban haladsz
+
+
+LÉPÉS 4: PRÓBÁLD .DAT FÁJL FELTÖLTÉST
+--------------------------------------
+Ha firmware nem megy, próbáld a config fájlt:
+
+1. TK11_nover.exe → Read from Radio (olvasás)
+2. Ha működik → COM port OK, csak firmware update nem megy
+3. Ha nem működik → teljes kommunikációs probléma
+
+================================================================================
+ALTERNATÍV FIRMWARE FLASH MÓDSZEREK
+================================================================================
+
+Ha TK11.exe egyáltalán nem kommunikál:
+
+[ALT 1] SERIAL TERMINAL
+------------------------
+Direkt UART kommunikáció
+
+1. PuTTY vagy RealTerm telepítése
+2. COM port megnyitása
+3. Baud: 9600 vagy 115200
+4. Küldj parancsokat manuálisan
+5. Bootloader válasz ellenőrzése
+
+
+[ALT 2] JTAG/SWD PROGRAMMING
+-----------------------------
+Ha van debug port a rádión
+
+1. ST-Link vagy J-Link adapter
+2. OpenOCD használata
+3. Direkt flash memory írás
+4. Szakértői szintű
+
+
+[ALT 3] CHIP PROGRAMMER
+-----------------------
+Flash chip kivétele és külső programozó
+
+NAGYON VESZÉLYES - NE próbáld hardver tapasztalat nélkül!
+
+================================================================================
+DEBUG INFORMÁCIÓK GYŰJTÉSE
+================================================================================
+
+KÉRDÉSEK AMIKRE VÁLASZOLJ:
+
+1. COM PORT:
+   [ ] Van COM port a Device Manager-ben?
+   [ ] Melyik szám? COM___
+   [ ] TK11.exe-ben ez be van állítva?
+
+2. PROGRAMOZÓ KÁBEL:
+   [ ] Milyen típusú? (CH340, Prolific, FTDI, egyéb)
+   [ ] Rádióhoz csatlakoztatva?
+   [ ] USB-hez csatlakoztatva?
+
+3. RÁDIÓ ÁLLAPOT:
+   [ ] Be van kapcsolva?
+   [ ] Akku szint? ____%
+   [ ] Kijelzőn mi látszik?
+   [ ] Programming módban van? (PROG, UPDATE felirat?)
+
+4. TK11.EXE:
+   [ ] Administrator módban fut?
+   [ ] Port beállítás? COM___
+   [ ] Baud rate? _____
+   [ ] Read from Radio működik?
+
+5. FIRMWARE FÁJL:
+   [ ] Melyiket próbáltad?
+   [ ] Eredeti firmware is próbáltad?
+   [ ] Ugyanaz a probléma?
+
+6. HIBAÜZENET:
+   [ ] Van valamilyen hibaüzenet?
+   [ ] Mit ír pontosan?
+   [ ] Vagy csak "nem történik semmi"?
+
+================================================================================
+KÖVETKEZŐ LÉPÉSEK
+================================================================================
+
+1. Válaszolj a fenti kérdésekre
+2. Próbáld a diagnosztikai lépéseket
+3. Jelentsd vissza az eredményeket
+
+Akkor tudunk pontosabb segítséget adni!
+
+================================================================================
+GYORS TESZT CHECKLIST
+================================================================================
+
+[ ] Rádió BE van kapcsolva
+[ ] Akku > 80%
+[ ] Programozó kábel csatlakoztatva (rádió + PC)
+[ ] Device Manager-ben látszik COM port
+[ ] TK11.exe Administrator módban fut
+[ ] TK11.exe-ben helyes COM port kiválasztva
+[ ] Rádió programming módban van (gombkombináció)
+[ ] TK11.exe → Read from Radio működik?
+[ ] Eredeti firmware feltöltés is próbálva?
+
+Ha MIND KÉSZ, akkor:
+  → Probléma a patched firmware-rel van
+  → Vagy speciális update eljárás kell
+
+Ha VALAMELYIK HIÁNYZIK:
+  → Javítsd azt először!
+
+================================================================================
+
+VÁLASZOLJ A KÉRDÉSEKRE ÉS JELENTSD VISSZA!
+
+Akkor tudunk továbblépni!
+
+================================================================================

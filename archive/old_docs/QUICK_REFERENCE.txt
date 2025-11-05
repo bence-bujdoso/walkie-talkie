@@ -1,0 +1,245 @@
+================================================================================
+TK11.DAT - QUICK REFERENCE GUIDE
+================================================================================
+
+FILE STRUCTURE:
+  - Total Size: 880,640 bytes (860 KB)
+  - Record Size: 64 bytes
+  - Total Records: 13,760 channels
+
+CHANNEL RECORD LAYOUT (64 bytes):
+┌────────────────────────────────────────────────────────────────────────────┐
+│  Offset │ Size │ Field                    │ Common Values                 │
+├─────────┼──────┼──────────────────────────┼───────────────────────────────┤
+│  0x00   │  4   │ RX Frequency (Hz, LE)    │ 2,000,000 - 1,000,000,000     │
+│  0x04   │  4   │ TX Frequency (Hz, LE)    │ 0=simplex, or different freq  │
+│  0x08   │  2   │ RX CTCSS/DCS             │ 0x0000 = no tone              │
+│  0x0A   │  2   │ TX CTCSS/DCS             │ 0x0000 = no tone              │
+│  0x0C   │  4   │ Unknown Flags            │ Various                       │
+│  0x10   │  1   │ Power/Step               │ 0x02 common                   │
+│  0x11   │  1   │ Bandwidth                │ 0x00 = wide                   │
+│  0x12   │  1   │ Modulation               │ 0x00                          │
+│  0x13   │  1   │ Scrambler                │ 0x00 = off                    │
+│  0x14   │  1   │ Busy Lock                │ 0x00                          │
+│  0x15   │  1   │ Squelch/Signal           │ 0x00-0x03                     │
+│ ┏0x16━━━┿━━1━━━┿━━TX PERMIT FLAG━━━━━━━━━━┿━━0xFF=ON, 0x00=OFF━━━━━━━━━━┓ │
+│ ┃       │      │ *** CRITICAL BYTE ***    │ *** TX LOCK CONTROL ***      ┃ │
+│ ┗━━━━━━━┷━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ │
+│  0x17   │  1   │ Mode/Type                │ 0x02=FM, 0x04=USB/other       │
+│  0x18   │ 16   │ Channel Name (ASCII)     │ Null-padded, max 15 chars     │
+│  0x28   │  1   │ Scan List                │ 0x00 = none                   │
+│  0x29   │  1   │ Squelch Mode             │ 0x00                          │
+│  0x2A   │  1   │ TOT Timer                │ 0x00 = off                    │
+│  0x2B   │  1   │ TOT Rekey                │ 0x00                          │
+│  0x2C   │  1   │ Optional Signal          │ 0x00                          │
+│  0x2D   │  1   │ DTMF ID                  │ 0x00                          │
+│  0x2E   │  1   │ PTT ID                   │ 0x00                          │
+│  0x2F   │  1   │ Busy Lock Out            │ 0x00                          │
+│  0x30   │ 16   │ Reserved/Unknown         │ Usually 0x00                  │
+└────────────────────────────────────────────────────────────────────────────┘
+
+TX UNLOCK PROCEDURE:
+════════════════════════════════════════════════════════════════════════════
+
+METHOD 1: Hex Editor (Manual)
+──────────────────────────────
+1. Calculate channel offset:
+   Offset = Channel_Number × 64 (decimal)
+   Example: Channel 1044 = 1044 × 64 = 66,816 = 0x10500
+
+2. Add 22 to get TX permit byte:
+   TX_Byte_Offset = Channel_Offset + 22
+   Example: 0x10500 + 0x16 = 0x10516
+
+3. Change byte value:
+   0x00 → 0xFF (disabled to enabled)
+
+4. Save and test with dummy load!
+
+
+METHOD 2: Python Script (Automated)
+────────────────────────────────────
+Run: python detailed_channel_analysis.py
+
+Output: TK11_TX_UNLOCKED.dat
+  - Automatically finds all valid channels
+  - Sets Byte 22 = 0xFF for all active channels
+  - Preserves all other data
+
+
+EXAMPLE HEX EDIT:
+════════════════════════════════════════════════════════════════════════════
+
+BEFORE (TX Locked):
+───────────────────
+Offset 0x10500 (Channel 1044):
+00010500: 80 02 75 03 00 00 00 00 00 00 00 00 00 00 09 00
+00010510: 02 00 00 00 00 00 [00] 04 ...
+                          ^^^^
+                      Byte 22 = 0x00 (TX OFF)
+
+AFTER (TX Unlocked):
+────────────────────
+Offset 0x10500 (Channel 1044):
+00010500: 80 02 75 03 00 00 00 00 00 00 00 00 00 00 09 00
+00010510: 02 00 00 00 00 00 [FF] 04 ...
+                          ^^^^
+                      Byte 22 = 0xFF (TX ON)
+
+
+FREQUENCY DECODING:
+════════════════════════════════════════════════════════════════════════════
+
+Format: 32-bit Little-Endian Integer (Hz)
+
+Example 1:
+  Hex bytes:     44 C9 29 00
+  Read as LE:    0x0029C944
+  Decimal:       2,738,500
+  Frequency:     2.7385 MHz
+
+Example 2:
+  Hex bytes:     70 7F BF 00
+  Read as LE:    0x00BF7F70
+  Decimal:       12,550,000
+  Frequency:     12.55 MHz
+
+Example 3:
+  Hex bytes:     80 02 75 03
+  Read as LE:    0x03750280
+  Decimal:       58,000,000
+  Frequency:     58.00 MHz (FM Broadcast - LOCKED!)
+
+Python code:
+  import struct
+  freq_hz = struct.unpack('<I', bytes.fromhex('44c92900'))[0]
+  freq_mhz = freq_hz / 1_000_000
+  print(f"{freq_mhz:.4f} MHz")
+
+
+LOCKED CHANNELS IN DATASET:
+════════════════════════════════════════════════════════════════════════════
+
+Total Found: 40 channels with TX disabled
+
+Pattern: Most are FM Broadcast band (58-108 MHz)
+Reason: Regulatory compliance - illegal to transmit on FM broadcast
+
+Sample locked channels:
+  Channel 1044-1049: Various FM frequencies
+  Channel 1408-1604: Various FM frequencies
+
+
+CHANNEL NAME FORMAT:
+════════════════════════════════════════════════════════════════════════════
+
+Location: Offset 0x18-0x27 (16 bytes)
+Encoding: ASCII with null padding
+Max Length: 15 characters + null terminator
+
+Examples:
+  "K38 USB\0\0\0\0\0\0\0\0"  → displays as "K38 USB"
+  "PMR-16\0\0\0\0\0\0\0\0\0" → displays as "PMR-16"
+  "Nyugat\0\0\0\0\0\0\0\0\0" → displays as "Nyugat"
+
+
+SAFETY WARNINGS:
+════════════════════════════════════════════════════════════════════════════
+
+⚠️  LEGAL: Unlocking does NOT make transmission legal!
+⚠️  BACKUP: Always keep original TK11.dat file
+⚠️  TEST: Use dummy load first - never transmit on FM broadcast
+⚠️  VERIFY: Check with second radio or spectrum analyzer
+⚠️  LICENSE: Only transmit on frequencies you are authorized to use
+
+
+TOOLS PROVIDED:
+════════════════════════════════════════════════════════════════════════════
+
+1. analyze_tk11.py
+   - Initial analysis, pattern detection
+   - Hex dump, string extraction
+   - Frequency scanning
+
+2. detailed_channel_analysis.py
+   - Full parser with TX flag analysis
+   - Creates unlocked version automatically
+   - Generates TK11_TX_UNLOCKED.dat
+
+3. refined_analysis.py
+   - Detailed field breakdown
+   - Channel-by-channel inspection
+   - Structure documentation
+
+4. TX_UNLOCK_REPORT.md
+   - Complete technical documentation
+   - Field descriptions
+   - Safety information
+
+5. QUICK_REFERENCE.txt (this file)
+   - Fast lookup guide
+   - Common procedures
+
+
+CHANNEL OFFSET CALCULATOR:
+════════════════════════════════════════════════════════════════════════════
+
+Channel Number → File Offset:
+  Offset (hex) = Channel × 0x40
+  Offset (dec) = Channel × 64
+
+Examples:
+  Ch    0 → 0x00000000 (0)
+  Ch    1 → 0x00000040 (64)
+  Ch   10 → 0x00000280 (640)
+  Ch  100 → 0x00001900 (6400)
+  Ch 1000 → 0x0000FA00 (64000)
+  Ch 1044 → 0x00010500 (66816)
+
+TX Byte Offset = Channel Offset + 0x16 (22 decimal)
+
+
+VERIFICATION CHECKLIST:
+════════════════════════════════════════════════════════════════════════════
+
+Before uploading modified file:
+☐ Backup original TK11.dat
+☐ Verify file size unchanged (880,640 bytes)
+☐ Check hex edits at correct offsets
+☐ Compare before/after with hex diff tool
+☐ Test load in programming software
+
+Before transmitting:
+☐ Confirm channel is legal for your license
+☐ Connect dummy load
+☐ Set low power
+☐ Monitor with second radio
+☐ Check TX LED activation
+☐ Verify frequency accuracy
+
+
+COMMON MISTAKES:
+════════════════════════════════════════════════════════════════════════════
+
+❌ Editing wrong byte (count carefully from record start)
+❌ Using big-endian instead of little-endian for frequency
+❌ Corrupting adjacent bytes
+❌ Not backing up original file
+❌ Transmitting without legal authorization
+❌ Testing on live antenna without dummy load
+
+
+SUPPORT & ANALYSIS:
+════════════════════════════════════════════════════════════════════════════
+
+File analyzed: 2024
+Record structure: Confirmed via pattern analysis
+TX lock byte: Verified by comparing 40 locked vs unlocked channels
+Frequency format: Confirmed by decoding known channel frequencies
+
+For questions or updates, refer to TX_UNLOCK_REPORT.md
+
+
+================================================================================
+END OF QUICK REFERENCE
+================================================================================

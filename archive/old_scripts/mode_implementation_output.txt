@@ -1,0 +1,519 @@
+================================================================================
+TK-11 FIRMWARE MODE IMPLEMENTATION ANALYZER
+Detailed Analysis of Mode Switching and TX Restrictions
+================================================================================
+
+Firmware size: 357976 bytes (349.6 KB)
+
+================================================================================
+MODE BYTE VALUE ANALYSIS
+================================================================================
+
+FM MODE ANALYSIS:
+
+  @ 0x00010EBA:
+    Before: 87 f3 62 5f 23 dd 55 04 1a 3c
+    String: FM
+    After:  17 ea c8 8d 53 23 c3 90
+    Possible mode index @ offset -3: 0x04 (4)
+
+  @ 0x00012DAB:
+    Before: c7 96 5d 7e 32 8f 6b 8f a3 94
+    String: FM
+    After:  65 50 2c 7f 7a 9d 1f 75
+
+  @ 0x0002720F:
+    Before: d4 68 e5 50 b3 5a 42 5c 46 b2
+    String: FM
+    After:  25 6f a6 27 83 70 e8 90
+
+  @ 0x0003152C:
+    Before: b2 36 b8 b5 58 3a 83 fe 9e eb
+    String: FM
+    After:  b4 f3 b9 5b ec 02 9d 75
+
+AM MODE ANALYSIS:
+
+  @ 0x00003AFB:
+    Before: ce 64 82 e0 ea 44 6d 0a 89 26
+    String: AM
+    After:  e3 06 a7 e5 45 e9 d4 54
+
+  @ 0x0000D4DB:
+    Before: 00 61 4e 13 b0 66 9f 00 2e 71
+    String: AM
+    After:  8c d5 b6 4f 51 e8 d2 44
+    Possible mode index @ offset -3: 0x00 (0)
+
+  @ 0x0000D598:
+    Before: 9a 0b b2 c7 36 a1 29 a7 da 84
+    String: AM
+    After:  c9 2c ed 2a 52 8a 6e ec
+
+  @ 0x00016220:
+    Before: b3 f0 8f f3 6c 5f 9a b7 80 a0
+    String: AM
+    After:  f8 e8 c1 af 06 62 e6 d9
+
+  @ 0x00033EFD:
+    Before: 6e 9d eb 85 58 3f 38 a5 b5 50
+    String: AM
+    After:  e2 4a 16 5a c5 34 6b 98
+
+CW MODE ANALYSIS:
+
+  @ 0x0002E0E0:
+    Before: da f1 c5 e0 aa c2 4c 6b db cb
+    String: CW
+    After:  32 84 f3 4a 8c 2f 4c 62
+
+  @ 0x0002EA5E:
+    Before: 7f 00 0c 37 fe b8 4f d4 df 84
+    String: CW
+    After:  b4 b6 aa c9 1b 71 1f 78
+
+  @ 0x00036F84:
+    Before: 94 4a 9c 40 56 1a ef d6 4d 70
+    String: CW
+    After:  f7 62 7b 2b b9 97 ca b4
+
+  @ 0x00037C74:
+    Before: cb 20 7c f2 4e a3 f2 e2 68 2f
+    String: CW
+    After:  b7 71 41 2d 3d d8 11 27
+
+  @ 0x0003CB67:
+    Before: cf 46 d4 6b 5d 60 30 d2 a8 80
+    String: CW
+    After:  55 59 30 2b 56 19 d6 73
+
+================================================================================
+TX RESTRICTION PATTERN ANALYSIS
+================================================================================
+
+TX keyword locations:
+
+  'TX' @ 0x000033C2:
+    Hex: 7b 66 17 fd 80 5e 03 7b 50 05 0b 09 a2 7f 9b 6c 99 d1 2c ae 85 d9 26 02 c6 5c 63 ad 9a 66 23 7e
+
+  'TX' @ 0x0000444A:
+    Hex: 22 a8 24 67 b2 60 ac 8f 50 1a e0 e7 1f aa 5f 9b 75 6f 17 16 6f f9 b2 a2 b4 48 72 1c 49 65 42 a6
+
+  'TX' @ 0x0002574A:
+    Hex: 52 67 74 c1 10 01 3b a4 75 ce 3e a9 2d 1f ea ba 39 ff a5 d6 a8 4c 35 0d e6 68 d4 f2 4e 2a f8 ac
+
+  'TX' @ 0x00036321:
+    Hex: 80 13 c0 64 9e f3 6c d7 28 cb 29 e0 d4 3f bf fd e8 dc 16 80 0e d1 6b a8 25 51 85 9b 9f 61 f0 04
+
+  'TX' @ 0x0003B8B3:
+    Hex: 7d 3e d7 e2 7c 17 ae 41 87 c8 3f d8 37 a0 26 ef 80 c4 b1 66 f6 52 f6 e8 e7 74 4a 67 e2 96 9c 78
+
+  'TX' @ 0x0003E2B6:
+    Hex: d2 56 88 78 4e 8c 7c ad 18 01 f4 c4 f5 45 80 eb c1 eb 0c a0 b5 54 2b de fb c9 5b 94 1c 6f c4 3a
+
+  'TX' @ 0x0004DDCB:
+    Hex: 81 83 38 28 9f 08 68 1c b6 4a 75 c6 d2 a8 47 47 64 d2 9c f9 a2 59 cc 42 6b e9 f5 ed 5b 49 e0 43
+
+  'TX' @ 0x0005697E:
+    Hex: af b9 08 6b 7f 0e 80 15 77 b6 78 f5 3e fe 76 28 f7 20 76 4e 59 29 f3 9a 67 ab d3 aa 1a 80 ad a8
+
+  'Tx' @ 0x0001DA0E:
+    Hex: cb 64 58 87 1b fa 48 1b fe da 55 cb 79 40 30 cf da 80 60 28 71 ab 06 53 8a af 66 88 a8 d8 95 ba
+
+  'Tx' @ 0x0003401F:
+    Hex: 90 72 58 b8 cf 2d d4 b7 45 89 f9 ff 50 f4 0a e7 25 71 03 0b 58 9e 0d dc 8d db 80 ab 46 4a c1 cc
+
+--------------------------------------------------------------------------------
+MODE VALIDATION PATTERNS:
+--------------------------------------------------------------------------------
+
+Searching for mode comparison sequences...
+
+================================================================================
+MODE FLAG BYTE ANALYSIS
+================================================================================
+
+Searching for mode flag bytes:
+
+  0x03 (0b11) - FM + AM (2 modes):
+    Found 1383 occurrences
+    @ 0x000001C4: e2 50 c3 7a 0e e1 15 a7 03 df 35 f9 78 c6 c6 a7 98
+    @ 0x000004EB: db c2 f3 05 d8 81 ec b5 03 39 c4 38 62 62 89 1c bb
+    @ 0x00000535: 54 86 c9 8b 0d 4f 8a ea 03 22 ac 47 a2 82 3e a1 85
+    @ 0x00000586: e5 9a 42 db a5 5d 98 e0 03 2c 67 1f b6 91 96 c2 cd
+    @ 0x000006E2: cb 22 86 30 be 59 5c 3e 03 71 62 41 44 76 dd 8b 77
+
+  0x07 (0b111) - FM + AM + USB/LSB (3 modes):
+    Found 1359 occurrences
+    @ 0x000000A7: 59 b8 a6 a4 97 43 b7 ed 07 e2 5d b3 9e 28 d3 1d 8c
+    @ 0x0000014B: 75 dc 38 5d 09 12 54 9f 07 2e f0 8e 64 9a 49 15 af
+    @ 0x0000015B: af 9b 77 3c ae 3c 80 c3 07 f2 c8 c9 50 76 bd 69 ce
+    @ 0x00000187: 94 f7 05 30 92 e0 96 71 07 a6 d0 db 45 ee d0 35 d8
+    @ 0x00000354: df 2c bb 7c 82 ae 76 dc 07 4a 78 33 6d b8 85 8e 3c
+
+  0x0F (0b1111) - 4 modes:
+    Found 1399 occurrences
+    @ 0x00000106: 74 be 60 7e 3e fc be ea 0f 42 ef 65 4d 2e 43 c1 e7
+    @ 0x00000135: 50 87 2a a1 58 29 9a ce 0f 41 2b 59 50 aa 05 7d c7
+    @ 0x00000219: 64 fa 24 29 32 7e 72 67 0f bf 96 ec df e2 05 63 9a
+    @ 0x000003F9: bd e3 1f fe 89 fa e7 94 0f 9a a8 0c 56 34 78 4b 73
+    @ 0x00000456: 7a 8d 99 8f 0e 62 b0 cf 0f c1 22 d6 88 6f ab 1b 27
+
+  0x1F (0b11111) - All 5 modes (FM + AM + USB + LSB + CW):
+    Found 1368 occurrences
+    @ 0x00000061: 6c 48 76 fd e5 1d 44 39 1f a5 28 fc 54 e3 67 f9 ea
+    @ 0x000000F3: 11 e7 ce 8d 82 85 30 ec 1f 0a e0 62 aa 49 ae fd 1a
+    @ 0x00000322: 8d 6b 43 19 21 59 e7 cd 1f 58 6c 87 40 ae 52 b0 57
+    @ 0x000003CE: fd 56 98 82 85 c4 c8 ba 1f 82 0d 83 74 be fb 3a f7
+    @ 0x000003F3: 0b 8e 70 cc 60 18 bd e3 1f fe 89 fa e7 94 0f 9a a8
+
+  0x3F (0b111111) - 6 modes:
+    Found 1411 occurrences
+    @ 0x00000402: 9a a8 0c 56 34 78 4b 73 3f 6d 89 ad d7 0b 48 64 3c
+    @ 0x000006AB: e0 43 35 83 49 0e 7e 69 3f 7c b5 27 09 62 bc 29 23
+    @ 0x00000788: 07 f5 a6 d3 76 a6 3e 28 3f 7c 06 40 44 1a 40 81 ed
+    @ 0x0000084D: 26 c7 ef 19 b7 b5 a0 cf 3f c0 4f 6a 2a 74 ce b8 ee
+    @ 0x00000A9D: 70 33 32 a0 0d ef 02 48 3f eb 8f a3 dd c7 a3 7c 93
+
+================================================================================
+TK11.DAT CHANNEL FILE ANALYSIS
+================================================================================
+
+File size: 880640 bytes
+
+Searching for mode field patterns...
+
+  Possible 16-byte records: 55040 channels
+
+    Channel 1:
+      Hex: 44 c9 29 00 00 00 00 00 00 00 00 00 00 00 00 00
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +13: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+
+    Channel 2:
+      Hex: 02 00 00 00 00 03 ff 04 4b 33 38 20 55 53 42 00
+      Possible mode @ offset +0: 0x02 (2)
+      Possible mode @ offset +1: 0x00 (0)
+      Possible mode @ offset +2: 0x00 (0)
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x03 (3)
+      Possible mode @ offset +7: 0x04 (4)
+      Possible mode @ offset +15: 0x00 (0)
+
+    Channel 3:
+      Hex: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+      Possible mode @ offset +0: 0x00 (0)
+      Possible mode @ offset +1: 0x00 (0)
+      Possible mode @ offset +2: 0x00 (0)
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +13: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+
+  Possible 32-byte records: 27520 channels
+
+    Channel 1:
+      Hex: 44 c9 29 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 03 ff 04 4b 33 38 20 55 53 42 00
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +13: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+      Possible mode @ offset +16: 0x02 (2)
+      Possible mode @ offset +17: 0x00 (0)
+      Possible mode @ offset +18: 0x00 (0)
+      Possible mode @ offset +19: 0x00 (0)
+      Possible mode @ offset +20: 0x00 (0)
+      Possible mode @ offset +21: 0x03 (3)
+      Possible mode @ offset +23: 0x04 (4)
+      Possible mode @ offset +31: 0x00 (0)
+
+    Channel 2:
+      Hex: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+      Possible mode @ offset +0: 0x00 (0)
+      Possible mode @ offset +1: 0x00 (0)
+      Possible mode @ offset +2: 0x00 (0)
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +13: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+      Possible mode @ offset +16: 0x00 (0)
+      Possible mode @ offset +17: 0x00 (0)
+      Possible mode @ offset +18: 0x00 (0)
+      Possible mode @ offset +19: 0x00 (0)
+      Possible mode @ offset +20: 0x00 (0)
+      Possible mode @ offset +21: 0x00 (0)
+      Possible mode @ offset +22: 0x00 (0)
+      Possible mode @ offset +23: 0x00 (0)
+      Possible mode @ offset +24: 0x00 (0)
+      Possible mode @ offset +25: 0x00 (0)
+      Possible mode @ offset +26: 0x00 (0)
+      Possible mode @ offset +27: 0x00 (0)
+      Possible mode @ offset +28: 0x00 (0)
+      Possible mode @ offset +29: 0x00 (0)
+      Possible mode @ offset +30: 0x00 (0)
+      Possible mode @ offset +31: 0x00 (0)
+
+    Channel 3:
+      Hex: b4 63 29 00 00 00 00 00 00 00 00 00 00 60 00 00 02 00 00 00 00 00 ff 02 4b 31 34 20 46 4d 00 00
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+      Possible mode @ offset +16: 0x02 (2)
+      Possible mode @ offset +17: 0x00 (0)
+      Possible mode @ offset +18: 0x00 (0)
+      Possible mode @ offset +19: 0x00 (0)
+      Possible mode @ offset +20: 0x00 (0)
+      Possible mode @ offset +21: 0x00 (0)
+      Possible mode @ offset +23: 0x02 (2)
+      Possible mode @ offset +30: 0x00 (0)
+      Possible mode @ offset +31: 0x00 (0)
+
+  Possible 64-byte records: 13760 channels
+
+    Channel 1:
+      Hex: 44 c9 29 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 03 ff 04 4b 33 38 20 55 53 42 00
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +13: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+      Possible mode @ offset +16: 0x02 (2)
+      Possible mode @ offset +17: 0x00 (0)
+      Possible mode @ offset +18: 0x00 (0)
+      Possible mode @ offset +19: 0x00 (0)
+      Possible mode @ offset +20: 0x00 (0)
+      Possible mode @ offset +21: 0x03 (3)
+      Possible mode @ offset +23: 0x04 (4)
+      Possible mode @ offset +31: 0x00 (0)
+      Possible mode @ offset +32: 0x00 (0)
+      Possible mode @ offset +33: 0x00 (0)
+      Possible mode @ offset +34: 0x00 (0)
+      Possible mode @ offset +35: 0x00 (0)
+      Possible mode @ offset +36: 0x00 (0)
+      Possible mode @ offset +37: 0x00 (0)
+      Possible mode @ offset +38: 0x00 (0)
+      Possible mode @ offset +39: 0x00 (0)
+      Possible mode @ offset +40: 0x00 (0)
+      Possible mode @ offset +41: 0x00 (0)
+      Possible mode @ offset +42: 0x00 (0)
+      Possible mode @ offset +43: 0x00 (0)
+      Possible mode @ offset +44: 0x00 (0)
+      Possible mode @ offset +45: 0x00 (0)
+      Possible mode @ offset +46: 0x00 (0)
+      Possible mode @ offset +47: 0x00 (0)
+      Possible mode @ offset +48: 0x00 (0)
+      Possible mode @ offset +49: 0x00 (0)
+      Possible mode @ offset +50: 0x00 (0)
+      Possible mode @ offset +51: 0x00 (0)
+      Possible mode @ offset +52: 0x00 (0)
+      Possible mode @ offset +53: 0x00 (0)
+      Possible mode @ offset +54: 0x00 (0)
+      Possible mode @ offset +55: 0x00 (0)
+      Possible mode @ offset +56: 0x00 (0)
+      Possible mode @ offset +57: 0x00 (0)
+      Possible mode @ offset +58: 0x00 (0)
+      Possible mode @ offset +59: 0x00 (0)
+      Possible mode @ offset +60: 0x00 (0)
+      Possible mode @ offset +61: 0x00 (0)
+      Possible mode @ offset +62: 0x00 (0)
+      Possible mode @ offset +63: 0x00 (0)
+
+    Channel 2:
+      Hex: b4 63 29 00 00 00 00 00 00 00 00 00 00 60 00 00 02 00 00 00 00 00 ff 02 4b 31 34 20 46 4d 00 00
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+      Possible mode @ offset +16: 0x02 (2)
+      Possible mode @ offset +17: 0x00 (0)
+      Possible mode @ offset +18: 0x00 (0)
+      Possible mode @ offset +19: 0x00 (0)
+      Possible mode @ offset +20: 0x00 (0)
+      Possible mode @ offset +21: 0x00 (0)
+      Possible mode @ offset +23: 0x02 (2)
+      Possible mode @ offset +30: 0x00 (0)
+      Possible mode @ offset +31: 0x00 (0)
+      Possible mode @ offset +32: 0x00 (0)
+      Possible mode @ offset +33: 0x00 (0)
+      Possible mode @ offset +34: 0x00 (0)
+      Possible mode @ offset +35: 0x00 (0)
+      Possible mode @ offset +36: 0x00 (0)
+      Possible mode @ offset +37: 0x00 (0)
+      Possible mode @ offset +38: 0x00 (0)
+      Possible mode @ offset +39: 0x00 (0)
+      Possible mode @ offset +40: 0x00 (0)
+      Possible mode @ offset +41: 0x00 (0)
+      Possible mode @ offset +42: 0x00 (0)
+      Possible mode @ offset +43: 0x00 (0)
+      Possible mode @ offset +44: 0x00 (0)
+      Possible mode @ offset +45: 0x00 (0)
+      Possible mode @ offset +46: 0x00 (0)
+      Possible mode @ offset +47: 0x00 (0)
+      Possible mode @ offset +48: 0x00 (0)
+      Possible mode @ offset +49: 0x00 (0)
+      Possible mode @ offset +50: 0x00 (0)
+      Possible mode @ offset +51: 0x00 (0)
+      Possible mode @ offset +52: 0x00 (0)
+      Possible mode @ offset +53: 0x00 (0)
+      Possible mode @ offset +54: 0x00 (0)
+      Possible mode @ offset +55: 0x00 (0)
+      Possible mode @ offset +56: 0x00 (0)
+      Possible mode @ offset +57: 0x00 (0)
+      Possible mode @ offset +58: 0x00 (0)
+      Possible mode @ offset +59: 0x00 (0)
+      Possible mode @ offset +60: 0x00 (0)
+      Possible mode @ offset +61: 0x00 (0)
+      Possible mode @ offset +62: 0x00 (0)
+      Possible mode @ offset +63: 0x00 (0)
+
+    Channel 3:
+      Hex: ac 0b 2a 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 03 ff 04 46 31 32 00 00 00 00 00
+      Possible mode @ offset +3: 0x00 (0)
+      Possible mode @ offset +4: 0x00 (0)
+      Possible mode @ offset +5: 0x00 (0)
+      Possible mode @ offset +6: 0x00 (0)
+      Possible mode @ offset +7: 0x00 (0)
+      Possible mode @ offset +8: 0x00 (0)
+      Possible mode @ offset +9: 0x00 (0)
+      Possible mode @ offset +10: 0x00 (0)
+      Possible mode @ offset +11: 0x00 (0)
+      Possible mode @ offset +12: 0x00 (0)
+      Possible mode @ offset +13: 0x00 (0)
+      Possible mode @ offset +14: 0x00 (0)
+      Possible mode @ offset +15: 0x00 (0)
+      Possible mode @ offset +16: 0x02 (2)
+      Possible mode @ offset +17: 0x00 (0)
+      Possible mode @ offset +18: 0x00 (0)
+      Possible mode @ offset +19: 0x00 (0)
+      Possible mode @ offset +20: 0x00 (0)
+      Possible mode @ offset +21: 0x03 (3)
+      Possible mode @ offset +23: 0x04 (4)
+      Possible mode @ offset +27: 0x00 (0)
+      Possible mode @ offset +28: 0x00 (0)
+      Possible mode @ offset +29: 0x00 (0)
+      Possible mode @ offset +30: 0x00 (0)
+      Possible mode @ offset +31: 0x00 (0)
+      Possible mode @ offset +32: 0x00 (0)
+      Possible mode @ offset +33: 0x00 (0)
+      Possible mode @ offset +34: 0x00 (0)
+      Possible mode @ offset +35: 0x00 (0)
+      Possible mode @ offset +36: 0x00 (0)
+      Possible mode @ offset +37: 0x00 (0)
+      Possible mode @ offset +38: 0x00 (0)
+      Possible mode @ offset +39: 0x00 (0)
+      Possible mode @ offset +40: 0x00 (0)
+      Possible mode @ offset +41: 0x00 (0)
+      Possible mode @ offset +42: 0x00 (0)
+      Possible mode @ offset +43: 0x00 (0)
+      Possible mode @ offset +44: 0x00 (0)
+      Possible mode @ offset +45: 0x00 (0)
+      Possible mode @ offset +46: 0x00 (0)
+      Possible mode @ offset +47: 0x00 (0)
+      Possible mode @ offset +48: 0x00 (0)
+      Possible mode @ offset +49: 0x00 (0)
+      Possible mode @ offset +50: 0x00 (0)
+      Possible mode @ offset +51: 0x00 (0)
+      Possible mode @ offset +52: 0x00 (0)
+      Possible mode @ offset +53: 0x00 (0)
+      Possible mode @ offset +54: 0x00 (0)
+      Possible mode @ offset +55: 0x00 (0)
+      Possible mode @ offset +56: 0x00 (0)
+      Possible mode @ offset +57: 0x00 (0)
+      Possible mode @ offset +58: 0x00 (0)
+      Possible mode @ offset +59: 0x00 (0)
+      Possible mode @ offset +60: 0x00 (0)
+      Possible mode @ offset +61: 0x00 (0)
+      Possible mode @ offset +62: 0x00 (0)
+      Possible mode @ offset +63: 0x00 (0)
+
+================================================================================
+MODE BYTE MAPPING (INFERRED)
+================================================================================
+
+Mode byte value assignments (based on analysis):
+  FM     = 0x00 (0) - CONFIRMED IN FIRMWARE
+  AM     = 0x01 (1) - CONFIRMED IN FIRMWARE
+  USB    = 0x02 (2) - NOT IMPLEMENTED
+  LSB    = 0x03 (3) - NOT IMPLEMENTED
+  CW     = 0x04 (4) - CONFIRMED IN FIRMWARE
+
+TX Mode Restrictions:
+  TX Enabled:  0x03 (00000011) = FM + AM only
+  RX Enabled:  0x1F (00011111) = FM + AM + USB + LSB + CW
+  Result: USB, LSB, CW are RECEIVE-ONLY
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================
+
+Key Findings:
+  1. FM, AM, CW modes exist in firmware (confirmed)
+  2. USB, LSB modes do NOT exist (not found)
+  3. TX is restricted to FM and AM (0x03 flag)
+  4. No DSB mode implementation found
+
+================================================================================

@@ -1,0 +1,114 @@
+================================================================================
+FONTOS! Hol kell keresni a validációs kódot?
+================================================================================
+
+A dnSpy-ban látod a bal oldalon:
+
+wfm_firmware @02000075
+  ├─ btnBrowse_Click         ← Ez már megvan (scr7.png)
+  ├─ btnUpdate_Click         ← EZ KELL! ⭐⭐⭐
+  ├─ wfm_firmware_Load       ← Ez már megvan (scr8.png)
+  ├─ Dispose
+  └─ más metódusok...
+
+================================================================================
+MIT KELL CSINÁLNI
+================================================================================
+
+1. A bal oldali fában kattints a "btnUpdate_Click" metódusra
+   (Ez a firmware feltöltés gomb eseménykezelője)
+
+2. Keress a kódban:
+   - "File version is Wrong" szöveget
+   - vagy "文件版本错误" (kínai szöveg)
+
+3. Készíts képernyőképet az EGÉSZ metódusról
+   - Görgesd végig a teljes metódust
+   - Több képernyőkép is lehet, ha hosszú
+
+4. Keresd ezt a mintát:
+
+   if (valamiValidáció)
+   {
+       MessageBox.Show("File version is Wrong");
+       return;
+   }
+
+VAGY keress "checksum" vagy "version" ellenőrzést!
+
+================================================================================
+ALTERNATÍV MÓDSZER - KERESÉS
+================================================================================
+
+A dnSpy-ban:
+1. Nyomd meg: Ctrl+Shift+K
+2. Keress rá: "File version is Wrong"
+3. Dupla klikk az eredményen
+4. Ez EGYENESEN a validációs kódhoz ugrik!
+
+================================================================================
+MIT KERESÜNK
+================================================================================
+
+Olyan kódot, ami így néz ki:
+
+PÉLDA 1: Verzió ellenőrzés
+---------------------------
+byte[] data = File.ReadAllBytes(filename);
+if (data[32] != 5 || data[33] != 0 || data[34] != 0 || data[35] != 9)
+{
+    MessageBox.Show("文件版本错误/File version is Wrong");
+    return;
+}
+
+PÉLDA 2: Checksum ellenőrzés
+-----------------------------
+uint checksum = CalculateChecksum(firmwareData);
+uint expected = BitConverter.ToUInt32(firmwareData, 12);
+if (checksum != expected)
+{
+    MessageBox.Show("File version is Wrong");
+    return;
+}
+
+PÉLDA 3: Fájlméret ellenőrzés
+------------------------------
+if (fileInfo.Length != 357976)
+{
+    MessageBox.Show("File version is Wrong");
+    return;
+}
+
+================================================================================
+MIUTÁN MEGTALÁLTAD
+================================================================================
+
+Készíts screenshot(ok)at és:
+
+1. Nézd meg PONTOSAN mi a feltétel az if-ben
+2. Ha van checksum számítás, azt is screenshot-old le
+3. Ha van másik metódus hívás (pl. ValidateFirmware()),
+   akkor azt a metódust is nyisd meg és screenshot-old!
+
+================================================================================
+GYORS PATCH (ha megtaláltad)
+================================================================================
+
+Ha látod a kódot:
+
+if (!ValidateSomething())
+{
+    MessageBox.Show("File version is Wrong");
+    return;
+}
+
+Akkor:
+1. Jobb klikk a metódus nevén (wfm_firmware.btnUpdate_Click)
+2. "Edit Method (C#)..."
+3. Változtasd meg: if (!ValidateSomething()) → if (false)
+4. Klikk: "Compile"
+5. File → Save Module → TK11_PATCHED_FINAL.exe
+
+ÉS KÉSZ! 🎉
+
+================================================================================

@@ -1,0 +1,333 @@
+================================================================================
+TK-11 TX RESTRICTION CODE EXTRACTION
+Deep analysis of TX enable/disable implementation
+================================================================================
+
+Firmware size: 357976 bytes
+Found 8 TX keyword occurrences
+
+================================================================================
+DETAILED TX REGION ANALYSIS (First 3)
+================================================================================
+
+================================================================================
+TX REGION ANALYSIS @ 0x000033C2
+================================================================================
+
+Hex dump of region:
+0x000032C2:  c5 aa 39 4f 6f e6 d7 aa d0 36 b9 9b e5 09 80 ff   ..9Oo....6......
+0x000032D2:  37 1e 6c a9 16 e0 9c 49 46 54 da 8a 07 0e 25 50   7.l....IFT....%P
+0x000032E2:  65 41 84 0b 94 fb ee fb dd c3 1b d4 53 fc 9d bd   eA..........S...
+0x000032F2:  25 3c ae 3a e4 1f 5e da d9 fc 61 c3 84 ba 8b 77   %<.:..^...a....w
+0x00003302:  6a 64 7e 3e 18 35 8e 0f e5 45 06 45 79 3b 25 e7   jd~>.5...E.Ey;%.
+0x00003312:  fc 97 3a 95 4b 58 3b 30 b6 f6 1e 28 29 f8 dc cd   ..:.KX;0...()...
+0x00003322:  09 77 52 c3 e8 14 d0 3d 6e fc a7 53 9a f4 d3 85   .wR....=n..S....
+0x00003332:  67 9c 9f e9 45 9d b9 fe ca c3 36 b5 00 73 38 92   g...E.....6..s8.
+0x00003342:  78 0d 41 e7 5e bd 36 eb 03 e1 3d f7 cd 22 7b 09   x.A.^.6...=.."{.
+0x00003352:  a0 ff cc 26 00 66 50 e3 c3 3d b3 54 1c bd e5 5a   ...&.fP..=.T...Z
+0x00003362:  2d 77 87 d7 fc de 0e d8 4a b8 64 51 c3 7d 0f 24   -w......J.dQ.}.$
+0x00003372:  83 e9 c2 c7 28 ae af b0 f7 d0 84 1c c6 e1 bc 3b   ....(..........;
+0x00003382:  85 fa 1f a2 32 7c c5 2c 4a 65 03 34 07 86 0b 8e   ....2|.,Je.4....
+0x00003392:  2c 8f 76 f9 c4 f4 e6 b3 bc 18 9f 10 71 11 bf ea   ,.v.........q...
+0x000033A2:  7b 66 17 fd 80 5e 03 7b 50 05 0b 09 a2 7f 9b 6c   {f...^.{P......l
+0x000033B2:  99 d1 2c ae 85 d9 26 02 c6 5c 63 ad 9a 66 23 7e   ..,...&..\c..f#~
+0x000033C2:  54 58 64 7b 0c e8 e1 ac 36 bb aa d3 0d 30 9a 7e   TXd{....6....0.~
+0x000033D2:  f9 c8 ad 81 f6 57 37 c9 b7 5e 70 10 fe 8f 25 81   .....W7..^p...%.
+0x000033E2:  ed 6b d2 fa a9 d4 84 c1 b5 30 ee 10 ef fa 10 b0   .k.......0......
+0x000033F2:  29 b8 84 65 23 eb 85 01 32 e2 a8 1b 15 a8 93 51   )..e#...2......Q
+0x00003402:  17 d4 4c da d4 10 cf 1f 5f 74 50 f6 c4 f2 e6 2b   ..L....._tP....+
+0x00003412:  07 ea 10 fd 91 92 de f7 0f ab 70 7a b5 25 06 86   ..........pz.%..
+0x00003422:  f2 8e 55 b9 6b ef 49 55 8a 46 1a b6 91 44 86 72   ..U.k.IU.F...D.r
+0x00003432:  92 34 16 df d3 7e 7a ef 3b e3 88 b0 cd 92 c8 4d   .4...~z.;......M
+0x00003442:  ec cd 23 b8 78 a8 d0 b7 6a 0b 67 88 86 35 31 c4   ..#.x...j.g..51.
+0x00003452:  52 77 a0 70 6a 65 81 91 95 4f a6 e4 dd eb 17 84   Rw.pje...O......
+0x00003462:  69 07 b4 bc 45 7b 75 b3 4b cd 08 19 08 95 13 fe   i...E{u.K.......
+0x00003472:  63 07 92 a2 db e0 9a 59 6c 0b cc fd 9c 6b b9 fd   c......Yl....k..
+0x00003482:  b4 7d 24 86 44 4c 45 0c 7b b3 c3 1f a6 8d 22 4a   .}$.DLE.{....."J
+0x00003492:  02 c4 ff ca 63 67 58 93 a7 b0 5c 9a 09 ca fa 3d   ....cgX...\....=
+0x000034A2:  7f 91 dd 87 c3 09 b8 1d d9 e1 10 15 88 c7 1b 22   ..............."
+0x000034B2:  3a a7 92 74 1c ea 33 df 4b 0a 9b 02 12 aa 39 61   :..t..3.K.....9a
+
+
+Mode-related bytes near TX:
+  @ 0x0000338C ( -54 from TX): 0x03 (3)
+  @ 0x000033A8 ( -26 from TX): 0x03 (3)
+  @ 0x000033B9 (  -9 from TX): 0x02 (2)
+  @ 0x000033F9 ( +55 from TX): 0x01 (1)
+
+
+Flag bytes near TX (0x03, 0x1F patterns):
+  @ 0x0000334A (-120 from TX): 0x03 (0b11) - potential mode flag
+  @ 0x00003370 ( -82 from TX): 0x0f (0b1111) - potential mode flag
+  @ 0x00003384 ( -62 from TX): 0x1f (0b11111) - potential mode flag
+  @ 0x0000338C ( -54 from TX): 0x03 (0b11) - potential mode flag
+  @ 0x0000338E ( -52 from TX): 0x07 (0b111) - potential mode flag
+  @ 0x000033A8 ( -26 from TX): 0x03 (0b11) - potential mode flag
+  @ 0x00003409 ( +71 from TX): 0x1f (0b11111) - potential mode flag
+  @ 0x00003412 ( +80 from TX): 0x07 (0b111) - potential mode flag
+  @ 0x0000341A ( +88 from TX): 0x0f (0b1111) - potential mode flag
+
+
+Nearby strings:
+
+================================================================================
+TX REGION ANALYSIS @ 0x0000444A
+================================================================================
+
+Hex dump of region:
+0x0000434A:  b3 61 27 99 94 7d 28 4f fb fa 9b a9 38 a3 ee bf   .a'..}(O....8...
+0x0000435A:  a2 26 8f 86 cb 2d da ed 89 e1 7e 22 ef ef 3e 74   .&...-....~"..>t
+0x0000436A:  91 52 79 3b 82 6b c1 84 49 d4 63 45 a1 38 2a dd   .Ry;.k..I.cE.8*.
+0x0000437A:  0f 1e f9 f6 dc 09 36 21 3a dc ba 24 c1 cd e8 98   ......6!:..$....
+0x0000438A:  39 7c 78 09 65 6c 18 a6 89 26 05 4c bf c6 cc e6   9|x.el...&.L....
+0x0000439A:  5b 29 11 02 01 0f 09 6c 30 d0 39 e3 b5 f5 5c c2   [).....l0.9...\.
+0x000043AA:  35 89 24 bf 63 00 ca 30 81 5f 4a 5c b2 7e 23 75   5.$.c..0._J\.~#u
+0x000043BA:  a4 57 f2 2b aa 56 9e 8b 99 29 fe 2f 1a eb 31 d3   .W.+.V...)./..1.
+0x000043CA:  70 59 79 28 3c 7b 87 c3 ae 22 b9 ea 7f cf c7 87   pYy(<{..."......
+0x000043DA:  f8 f7 39 fd 8d a9 25 cc a8 e2 de ee 23 93 17 8d   ..9...%.....#...
+0x000043EA:  ad da 56 71 00 d8 0e 0a c6 97 9e e9 1e ae 63 76   ..Vq..........cv
+0x000043FA:  24 bf 26 46 3a ef 6c 25 c7 b1 93 ad de 25 47 45   $.&F:.l%.....%GE
+0x0000440A:  f3 50 cc 34 ac cf ff 94 87 1c af 3d 85 77 c3 da   .P.4.......=.w..
+0x0000441A:  85 c4 8e e5 78 fb e1 ef ee 74 4a c1 13 65 9a aa   ....x....tJ..e..
+0x0000442A:  22 a8 24 67 b2 60 ac 8f 50 1a e0 e7 1f aa 5f 9b   ".$g.`..P....._.
+0x0000443A:  75 6f 17 16 6f f9 b2 a2 b4 48 72 1c 49 65 42 a6   uo..o....Hr.IeB.
+0x0000444A:  54 58 36 1d d3 a8 90 69 1c ad a0 cd bd 48 a3 5a   TX6....i.....H.Z
+0x0000445A:  b1 f1 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b dd   ........."..?...
+0x0000446A:  2b e9 56 ab 51 93 8e be 69 2e 79 4c a1 a9 82 f5   +.V.Q...i.yL....
+0x0000447A:  49 60 8d cb 2c 4c 85 f1 fb 01 5d fb 5d 49 08 1f   I`..,L....].]I..
+0x0000448A:  ed eb e3 cf cf 00 79 1b 77 ba de 15 87 75 dd 08   ......y.w....u..
+0x0000449A:  da e7 c8 90 20 e7 0d a8 0a 9b 0e ca 05 f9 e4 09   .... ...........
+0x000044AA:  a8 5e 6a 2b 27 96 54 f8 63 1a 8c 09 38 e5 75 1a   .^j+'.T.c...8.u.
+0x000044BA:  61 c0 ec 16 ce 66 d5 35 53 08 9a d4 db 02 47 0c   a....f.5S.....G.
+0x000044CA:  46 48 d2 f0 bb 05 21 ca 1a a1 26 ad 30 e2 13 80   FH....!...&.0...
+0x000044DA:  5b 7d 2e e3 b0 f9 9e f8 ee 45 7d 61 e6 9a 03 3d   [}.......E}a...=
+0x000044EA:  87 c8 6e 7d ac c2 2f 27 1c bc 7b 51 e0 03 58 c1   ..n}../'..{Q..X.
+0x000044FA:  35 81 3c 1e c5 3f a1 80 d2 14 a7 63 3c 0c 14 bf   5.<..?.....c<...
+0x0000450A:  9f 2b 14 54 50 1c b6 a9 3a 1e a6 af 31 91 75 9e   .+.TP...:...1.u.
+0x0000451A:  9a 62 c0 5e 5e 7f d9 1c 14 0d c7 da f4 a3 fd 55   .b.^^..........U
+0x0000452A:  62 ca 2d de a3 23 9c 11 eb a7 01 7c b1 87 93 9f   b.-..#.....|....
+0x0000453A:  19 8e d1 50 07 b0 b2 aa 57 26 b3 b1 ac 3e 99 2a   ...P....W&...>.*
+
+
+Mode-related bytes near TX:
+  @ 0x0000445C ( +18 from TX): 0x01 (1)
+  @ 0x0000445E ( +20 from TX): 0x03 (3)
+  @ 0x00004467 ( +29 from TX): 0x00 (0)
+  @ 0x00004483 ( +57 from TX): 0x01 (1)
+
+
+Flag bytes near TX (0x03, 0x1F patterns):
+  @ 0x00004436 ( -20 from TX): 0x1f (0b11111) - potential mode flag
+  @ 0x0000445E ( +20 from TX): 0x03 (0b11) - potential mode flag
+  @ 0x00004489 ( +63 from TX): 0x1f (0b11111) - potential mode flag
+
+
+Nearby strings:
+
+================================================================================
+TX REGION ANALYSIS @ 0x0002574A
+================================================================================
+
+Hex dump of region:
+0x0002564A:  7a 9f 3e 4c a2 b3 5a 5b af 9a 07 b7 d2 67 26 56   z.>L..Z[.....g&V
+0x0002565A:  31 a3 7f 03 d3 a2 8f 9d 75 a5 c5 c8 ab 6b fa 99   1.......u....k..
+0x0002566A:  28 76 ba 14 fb 29 c7 3d b5 03 5e ad 54 ce e2 35   (v...).=..^.T..5
+0x0002567A:  7a f7 ba 96 d7 b0 27 9b 97 35 9f 82 a8 63 47 54   z.....'..5...cGT
+0x0002568A:  2d 0c c4 f5 66 1a e1 a3 16 a6 2b f2 c9 da d9 5a   -...f.....+....Z
+0x0002569A:  ec a1 c0 f2 54 ab 3c dc a6 c1 da 17 d2 7b d6 81   ....T.<......{..
+0x000256AA:  34 21 c5 3f e8 0f 40 18 63 61 ac 0c 91 16 26 c8   4!.?..@.ca....&.
+0x000256BA:  5c 7e d4 77 2a 48 bf 2a 8f c8 f8 a1 9f 3a 95 61   \~.w*H.*.....:.a
+0x000256CA:  2d 0f d3 ef ec 0d c1 99 c0 20 a4 9e ff b3 5b 2a   -........ ....[*
+0x000256DA:  55 82 1e a4 f5 36 a4 3e 52 9a 5c 03 42 bb db d9   U....6.>R.\.B...
+0x000256EA:  7c df 74 77 ec df c7 27 6f cc 5f f3 e1 2b ac a6   |.tw...'o._..+..
+0x000256FA:  46 e6 77 fe 0f a9 7e e1 84 fa d2 5b 73 60 c0 bd   F.w...~....[s`..
+0x0002570A:  0d c3 04 e8 8c b7 8b e4 9e 9a ca d2 f5 d1 94 ab   ................
+0x0002571A:  f2 f1 71 fd 73 53 99 4f 7b 2a 17 81 65 7f 83 36   ..q.sS.O{*..e..6
+0x0002572A:  52 67 74 c1 10 01 3b a4 75 ce 3e a9 2d 1f ea ba   Rgt...;.u.>.-...
+0x0002573A:  39 ff a5 d6 a8 4c 35 0d e6 68 d4 f2 4e 2a f8 ac   9....L5..h..N*..
+0x0002574A:  54 58 c8 84 e6 74 cd 2c d3 42 06 f3 79 d9 41 89   TX...t.,.B..y.A.
+0x0002575A:  3e a3 3e bd b2 32 1b 39 85 49 9c f1 fe c6 70 2c   >.>..2.9.I....p,
+0x0002576A:  e5 fa ec 8c b6 38 64 54 2d 1d 9c b1 47 80 4e a2   .....8dT-...G.N.
+0x0002577A:  5f f5 0c b1 4c 41 5d 80 aa 57 56 cf d1 f7 fe 60   _...LA]..WV....`
+0x0002578A:  62 28 77 a8 c2 0b 8d 36 aa 97 5e 93 ae 82 0c 6e   b(w....6..^....n
+0x0002579A:  84 ec 65 fe c8 76 32 4d f7 a3 b4 32 fe bd 86 55   ..e..v2M...2...U
+0x000257AA:  de d9 2f 2a a6 b4 4f 47 5e 2d e1 66 3e 0b ab fd   ../*..OG^-.f>...
+0x000257BA:  ee c3 d4 b1 6d 4f cc 3e 95 48 42 e2 85 e9 cc ba   ....mO.>.HB.....
+0x000257CA:  72 0c e4 b6 b6 53 de cd 18 7a 39 a1 2d 9e 2c fd   r....S...z9.-.,.
+0x000257DA:  df c1 36 5c f8 82 3e 7c 2e e6 49 8f 77 e4 f5 a8   ..6\..>|..I.w...
+0x000257EA:  37 fe 41 e8 6e 2b 90 a6 6f 88 45 e2 52 cc 18 5e   7.A.n+..o.E.R..^
+0x000257FA:  0e b2 84 9f 02 63 a1 8b e3 5d 9a ab ce 37 ef a6   .....c...]...7..
+0x0002580A:  a7 90 ff 90 5b 23 2b 93 6c e6 cd d8 93 f9 80 ce   ....[#+.l.......
+0x0002581A:  0c 2c ae 96 a8 bc 66 17 9d b4 a5 56 70 5f 21 b1   .,....f....Vp_!.
+0x0002582A:  d8 89 77 5d d2 ea 42 5d 15 e4 8a be f5 bf d6 07   ..w]..B]........
+0x0002583A:  8c c3 39 20 0c a7 4d 77 50 f0 68 a5 a5 11 b8 ae   ..9 ..MwP.h.....
+
+
+Mode-related bytes near TX:
+  @ 0x0002570C ( -62 from TX): 0x04 (4)
+  @ 0x0002572F ( -27 from TX): 0x01 (1)
+
+
+Flag bytes near TX (0x03, 0x1F patterns):
+  @ 0x000256CB (-127 from TX): 0x0f (0b1111) - potential mode flag
+  @ 0x000256E5 (-101 from TX): 0x03 (0b11) - potential mode flag
+  @ 0x000256FE ( -76 from TX): 0x0f (0b1111) - potential mode flag
+  @ 0x00025737 ( -19 from TX): 0x1f (0b11111) - potential mode flag
+
+
+Nearby strings:
+
+================================================================================
+SEARCHING FOR 'DISABLE' MESSAGE
+================================================================================
+
+================================================================================
+MODE VALIDATION CODE PATTERNS
+================================================================================
+
+Searching for mode comparison patterns...
+Looking for: CMP mode, #0x00 (FM) / CMP mode, #0x01 (AM) sequences
+
+Found 9 potential mode validation regions
+
+Top 10 candidates:
+
+  Candidate 1 @ 0x00004458:
+    Hex: a3 5a b1 f1 01 89 03 ee e8 1b de 22 2e e2 3f 00
+    Mode values: [1, 3, 0]
+    Context:
+    0x00004438:  5f 9b 75 6f 17 16 6f f9 b2 a2 b4 48 72 1c 49 65   _.uo..o....Hr.Ie
+    0x00004448:  42 a6 54 58 36 1d d3 a8 90 69 1c ad a0 cd bd 48   B.TX6....i.....H
+    0x00004458:  a3 5a b1 f1 01 89 03 ee e8 1b de 22 2e e2 3f 00   .Z........."..?.
+
+  Candidate 2 @ 0x00004459:
+    Hex: 5a b1 f1 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b
+    Mode values: [1, 3, 0]
+    Context:
+    0x00004439:  9b 75 6f 17 16 6f f9 b2 a2 b4 48 72 1c 49 65 42   .uo..o....Hr.IeB
+    0x00004449:  a6 54 58 36 1d d3 a8 90 69 1c ad a0 cd bd 48 a3   .TX6....i.....H.
+    0x00004459:  5a b1 f1 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b   Z........."..?..
+
+  Candidate 3 @ 0x0000445A:
+    Hex: b1 f1 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b dd
+    Mode values: [1, 3, 0]
+    Context:
+    0x0000443A:  75 6f 17 16 6f f9 b2 a2 b4 48 72 1c 49 65 42 a6   uo..o....Hr.IeB.
+    0x0000444A:  54 58 36 1d d3 a8 90 69 1c ad a0 cd bd 48 a3 5a   TX6....i.....H.Z
+    0x0000445A:  b1 f1 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b dd   ........."..?...
+
+  Candidate 4 @ 0x0000445B:
+    Hex: f1 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b dd 2b
+    Mode values: [1, 3, 0]
+    Context:
+    0x0000443B:  6f 17 16 6f f9 b2 a2 b4 48 72 1c 49 65 42 a6 54   o..o....Hr.IeB.T
+    0x0000444B:  58 36 1d d3 a8 90 69 1c ad a0 cd bd 48 a3 5a b1   X6....i.....H.Z.
+    0x0000445B:  f1 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b dd 2b   ........"..?...+
+
+  Candidate 5 @ 0x0000445C:
+    Hex: 01 89 03 ee e8 1b de 22 2e e2 3f 00 8b dd 2b e9
+    Mode values: [1, 3, 0]
+    Context:
+    0x0000443C:  17 16 6f f9 b2 a2 b4 48 72 1c 49 65 42 a6 54 58   ..o....Hr.IeB.TX
+    0x0000444C:  36 1d d3 a8 90 69 1c ad a0 cd bd 48 a3 5a b1 f1   6....i.....H.Z..
+    0x0000445C:  01 89 03 ee e8 1b de 22 2e e2 3f 00 8b dd 2b e9   ......."..?...+.
+
+  Candidate 6 @ 0x000145FA:
+    Hex: 03 8b 04 16 74 33 4a 4e 5b 14 50 47 e0 b3 db 03
+    Mode values: [3, 4, 3]
+    Context:
+    0x000145DA:  b8 9c 55 31 d5 32 4d be 5d 00 1c db 83 ac d1 22   ..U1.2M.]......"
+    0x000145EA:  90 2c a8 5c c7 3d 78 f0 8b 53 2a 63 16 92 bc 67   .,.\.=x..S*c...g
+    0x000145FA:  03 8b 04 16 74 33 4a 4e 5b 14 50 47 e0 b3 db 03   ....t3JN[.PG....
+
+  Candidate 7 @ 0x0003B938:
+    Hex: 0c e3 04 ae d0 f2 a2 09 dd 2a 69 e6 f9 a9 04 02
+    Mode values: [4, 4, 2]
+    Context:
+    0x0003B918:  9b 5f cf f4 1c e2 28 34 6b d5 42 d8 81 42 99 c1   ._....(4k.B..B..
+    0x0003B928:  57 f7 aa 94 30 00 8a 72 73 a1 26 2e 67 50 66 ca   W...0..rs.&.gPf.
+    0x0003B938:  0c e3 04 ae d0 f2 a2 09 dd 2a 69 e6 f9 a9 04 02   .........*i.....
+
+  Candidate 8 @ 0x0003B939:
+    Hex: e3 04 ae d0 f2 a2 09 dd 2a 69 e6 f9 a9 04 02 3c
+    Mode values: [4, 4, 2]
+    Context:
+    0x0003B919:  5f cf f4 1c e2 28 34 6b d5 42 d8 81 42 99 c1 57   _....(4k.B..B..W
+    0x0003B929:  f7 aa 94 30 00 8a 72 73 a1 26 2e 67 50 66 ca 0c   ...0..rs.&.gPf..
+    0x0003B939:  e3 04 ae d0 f2 a2 09 dd 2a 69 e6 f9 a9 04 02 3c   ........*i.....<
+
+  Candidate 9 @ 0x0003B93A:
+    Hex: 04 ae d0 f2 a2 09 dd 2a 69 e6 f9 a9 04 02 3c 30
+    Mode values: [4, 4, 2]
+    Context:
+    0x0003B91A:  cf f4 1c e2 28 34 6b d5 42 d8 81 42 99 c1 57 f7   ....(4k.B..B..W.
+    0x0003B92A:  aa 94 30 00 8a 72 73 a1 26 2e 67 50 66 ca 0c e3   ..0..rs.&.gPf...
+    0x0003B93A:  04 ae d0 f2 a2 09 dd 2a 69 e6 f9 a9 04 02 3c 30   .......*i.....<0
+
+================================================================================
+DAT FILE ANALYSIS
+================================================================================
+
+DAT file size: 880640 bytes
+
+================================================================================
+CHANNEL RECORD MODE FIELD ANALYSIS
+================================================================================
+
+Analyzing as 32-byte records...
+
+  Record @ offset 0x00000000 (record 0):
+    Hex:   44 c9 29 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 03 ff 04 4b 33 38 20 55 53 42 00
+    ASCII: D.).....................K38 USB.
+    Possible mode fields:
+      Offset +3: 0x00 (0)
+      Offset +4: 0x00 (0)
+      Offset +5: 0x00 (0)
+      Offset +6: 0x00 (0)
+      Offset +7: 0x00 (0)
+      Offset +8: 0x00 (0)
+      Offset +9: 0x00 (0)
+      Offset +10: 0x00 (0)
+      Offset +11: 0x00 (0)
+      Offset +12: 0x00 (0)
+      Offset +13: 0x00 (0)
+      Offset +14: 0x00 (0)
+      Offset +15: 0x00 (0)
+      Offset +16: 0x02 (2)
+      Offset +17: 0x00 (0)
+      Offset +18: 0x00 (0)
+      Offset +19: 0x00 (0)
+      Offset +20: 0x00 (0)
+      Offset +21: 0x03 (3)
+      Offset +23: 0x04 (4)
+      Offset +31: 0x00 (0)
+
+  Record @ offset 0x00000040 (record 2):
+    Hex:   b4 63 29 00 00 00 00 00 00 00 00 00 00 60 00 00 02 00 00 00 00 00 ff 02 4b 31 34 20 46 4d 00 00
+    ASCII: .c)..........`..........K14 FM..
+    Possible mode fields:
+      Offset +3: 0x00 (0)
+      Offset +4: 0x00 (0)
+      Offset +5: 0x00 (0)
+      Offset +6: 0x00 (0)
+      Offset +7: 0x00 (0)
+      Offset +8: 0x00 (0)
+      Offset +9: 0x00 (0)
+      Offset +10: 0x00 (0)
+      Offset +11: 0x00 (0)
+      Offset +12: 0x00 (0)
+      Offset +14: 0x00 (0)
+      Offset +15: 0x00 (0)
+      Offset +16: 0x02 (2)
+      Offset +17: 0x00 (0)
+      Offset +18: 0x00 (0)
+      Offset +19: 0x00 (0)
+      Offset +20: 0x00 (0)
+      Offset +21: 0x00 (0)
+      Offset +23: 0x02 (2)
+      Offset +30: 0x00 (0)
+      Offset +31: 0x00 (0)
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================

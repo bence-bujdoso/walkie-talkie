@@ -1,0 +1,177 @@
+================================================================================
+GYORS DIAGNOSZTIKA - Firmware Feltöltés Nem Indul
+================================================================================
+
+Válaszolj ezekre a kérdésekre (IGEN/NEM/NEM TUDOM):
+
+================================================================================
+1. RÁDIÓ PROGRAMMING MÓD
+================================================================================
+
+Q1: A rádió kijelzőjén látszik valami speciális felirat?
+    (pl. "PROG", "UPDATE", "FLASH", vagy villogó kijelző)
+
+    [ ] IGEN - Mi látszik? _________________
+    [ ] NEM - Normál frekvencia/csatorna látszik
+    [ ] NEM TUDOM
+
+Q2: Próbáltad gombkombinációval elindítani?
+    (Kikapcsolás → Gomb nyomva tartása → Bekapcsolás)
+
+    [ ] IGEN - Melyik gombot? _________________
+    [ ] NEM - Még nem próbáltam
+    [ ] NEM TUDOM hogy melyik gombot
+
+>>> HA NEM-et válaszoltál Q2-re: PRÓBÁLD EZT! <<<
+
+GOMBKOMBINÁCIÓK AMIKET KIPRÓBÁLHATSZ:
+  1. PTT + POWER (bekapcsolás közben)
+  2. PTT + UP (bekapcsolás közben)
+  3. PTT + DOWN (bekapcsolás közben)
+  4. PTT + MENU (bekapcsolás közben)
+  5. MENU + POWER (bekapcsolás közben)
+
+Tartsd 3-5 másodpercig!
+
+================================================================================
+2. TK11.EXE MŰKÖDÉS
+================================================================================
+
+Q3: TK11.exe-ben van "Read from Radio" vagy hasonló funkció?
+    Próbáltad ezt?
+
+    [ ] IGEN, működött - Config-ot sikerült olvasni
+    [ ] IGEN, NEM működött - Hiba vagy timeout
+    [ ] NEM próbáltam még
+    [ ] NEM találom ezt a funkciót
+
+Q4: TK11.exe-ben van COM port beállítás?
+    Melyik COM port van kiválasztva?
+
+    [ ] IGEN - COM___ (írjd be a számot!)
+    [ ] NEM találom ezt a beállítást
+    [ ] NEM TUDOM
+
+Q5: Device Manager-ben (Windows) van listázva COM port?
+    (Win+X → Device Manager → Ports (COM & LPT))
+
+    [ ] IGEN - COM___ látszik
+    [ ] NEM - Nincs semmi listázva
+    [ ] NEM TUDOM hol van a Device Manager
+
+================================================================================
+3. KÁBEL ÉS CSATLAKOZÁS
+================================================================================
+
+Q6: Milyen típusú programozó kábelt használsz?
+
+    [ ] USB → 2.5mm/3.5mm jack kábel
+    [ ] Soros kábel (RS-232)
+    [ ] NEM TUDOM / Egyéb: _________________
+
+Q7: A kábel teljesen csatlakoztatva van?
+    (Rádió oldal ÉS PC oldal is?)
+
+    [ ] IGEN - Mindkettő csatlakoztatva
+    [ ] NEM - Csak egyik oldal
+    [ ] NEM BIZTOS
+
+================================================================================
+4. AMIT A TK11.EXE CSINÁL
+================================================================================
+
+Q8: Amikor megpróbálod a firmware-t feltölteni, mi történik?
+
+    [ ] Semmi - Csak nem történik semmi
+    [ ] Hibaüzenet - Mi van benne? _________________
+    [ ] Progress bar indul, de leáll
+    [ ] TK11.exe lefagy
+    [ ] Egyéb: _________________
+
+Q9: Van valamilyen log ablak vagy státusz üzenet a TK11.exe-ben?
+    Mit ír?
+
+    [ ] "Waiting for radio..."
+    [ ] "Timeout"
+    [ ] "Connection failed"
+    [ ] "No response"
+    [ ] Semmi üzenet
+    [ ] Egyéb: _________________
+
+================================================================================
+5. EREDETI FIRMWARE TESZT
+================================================================================
+
+Q10: Próbáltad az EREDETI firmware-t feltölteni?
+     (TK11_v5.00.09_ENG.bin)
+
+     [ ] IGEN, az sem ment - Ugyanaz a probléma
+     [ ] IGEN, az MENT - Csak a patched nem
+     [ ] NEM próbáltam még
+
+>>> HA NEM-et válaszoltál: PRÓBÁLD KI MOST! <<<
+
+Ez fontos diagnosztikai információ!
+
+================================================================================
+DIAGNÓZIS EREDMÉNY
+================================================================================
+
+Ha Q1=NEM és Q2=NEM:
+  >>> MEGOLDÁS: Rádiónak PROGRAMMING MÓDBA kell lépnie!
+  >>> Próbáld a gombkombinációkat!
+
+Ha Q3=NEM működött és Q5=NEM:
+  >>> MEGOLDÁS: COM port driver hiányzik!
+  >>> Telepítsd a programozó kábel drivert!
+
+Ha Q3=MŰKÖDÖTT de Q8=Semmi:
+  >>> MEGOLDÁS: Rádió programming módban kell legyen!
+  >>> Config olvasás≠Firmware írás, más mód kell!
+
+Ha Q10=Az is ment:
+  >>> MEGOLDÁS: Patched firmware problémás lehet
+  >>> Lehet checksum vagy header hiba
+
+Ha Q10=Az sem ment:
+  >>> MEGOLDÁS: Rádió kommunikáció nem jó
+  >>> Ellenőrizd COM port, kábel, driver
+
+================================================================================
+KÖVETKEZŐ LÉPÉSEK A VÁLASZOK ALAPJÁN
+================================================================================
+
+VÁLASZOLD MEG A KÉRDÉSEKET ÉS JELENTSD VISSZA!
+
+Formátum példa:
+  Q1: NEM
+  Q2: NEM
+  Q3: NEM próbáltam
+  Q4: COM3
+  Q5: IGEN - COM3
+  Q6: USB kábel
+  Q7: IGEN
+  Q8: Semmi nem történik
+  Q9: Semmi üzenet
+  Q10: NEM próbáltam
+
+Ezek alapján pontosan meg tudjuk mondani a problémát!
+
+================================================================================
+
+LEGVALÓSZÍNŰBB PROBLÉMA:
+
+🔴 RÁDIÓ NINCS PROGRAMMING/FIRMWARE UPDATE MÓDBAN! 🔴
+
+A TK11 rádiónak speciális módba kell lépnie firmware update-hez!
+
+PRÓBÁLD EZT:
+1. Kapcsold KI a rádiót
+2. Tartsd nyomva: PTT gombot
+3. KÖZBEN kapcsold BE a rádiót
+4. Tartsd PTT-t 5 másodpercig
+5. Figyeld a kijelzőt - változik valami?
+
+Ha ez nem működik, próbáld más gombokkal (UP, DOWN, MENU)!
+
+================================================================================

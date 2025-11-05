@@ -1,0 +1,4 @@
+  File "<string>", line 50
+    print(f"   - FM: {data.count(b\"FM\")} references")
+                                   ^
+SyntaxError: unexpected character after line continuation character

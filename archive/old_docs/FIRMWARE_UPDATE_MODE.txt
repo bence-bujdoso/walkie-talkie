@@ -1,0 +1,131 @@
+================================================================================
+TK11 FIRMWARE UPDATE MODE - GYORS ÚTMUTATÓ
+================================================================================
+
+⚠️  LEGVALÓSZÍNŰBB PROBLÉMA: RÁDIÓ NINCS FIRMWARE UPDATE MÓDBAN! ⚠️
+
+================================================================================
+PRÓBÁLD EZT ELŐSZÖR!
+================================================================================
+
+MÓDSZER 1: PTT + POWER
+------------------------
+1. Kapcsold KI a rádiót
+2. Tartsd nyomva a PTT gombot
+3. KÖZBEN kapcsold BE a rádiót (PTT továbbra is nyomva!)
+4. Tartsd a PTT-t 5-10 másodpercig
+5. Figyeld a kijelzőt
+
+SIKERES HA:
+  - Kijelző üres lesz
+  - Vagy "PROG" / "UPDATE" felirat
+  - Vagy villogó LED
+  - Vagy furcsa kijelző (nem normál működés)
+
+MOST PRÓBÁLD A FIRMWARE FELTÖLTÉST!
+
+
+MÓDSZER 2: MENU + POWER
+------------------------
+1. Kapcsold KI a rádiót
+2. Tartsd nyomva a MENU gombot
+3. KÖZBEN kapcsold BE a rádiót
+4. Tartsd 5-10 másodpercig
+5. Figyeld a kijelzőt
+
+
+MÓDSZER 3: UP + POWER
+----------------------
+1. Kapcsold KI a rádiót
+2. Tartsd nyomva az UP (fel) gombot
+3. KÖZBEN kapcsold BE a rádiót
+4. Tartsd 5-10 másodpercig
+
+
+MÓDSZER 4: TK11.EXE-BŐL
+------------------------
+1. Rádió BE legyen (normál módban)
+2. TK11.exe → Radio/Tools menü
+3. Keress: "Enter Programming Mode" vagy "Firmware Update Mode"
+4. Klikk erre
+5. Rádiónak át kell kapcsolnia
+
+
+MÓDSZER 5: MANUÁL
+------------------
+1. Nézd meg a TK11 felhasználói kézikönyvét
+2. Keress: "Firmware Update" fejezetre
+3. Ott le van írva a pontos módszer
+
+================================================================================
+ELLENŐRZÉS
+================================================================================
+
+TESZTELD HOGY MŰKÖDIK-E:
+
+1. Rádió programming módban van
+2. TK11_nover.exe megnyitása
+3. Firmware fájl betöltése
+4. "Upload" vagy "Flash" vagy "Write" gomb
+5. Figyelj: Indul-e a progress bar?
+
+HA MOST IS NEM INDUL:
+  → Nézd: GYORS_DIAGNOSZTIKA.txt
+  → Válaszolj a kérdésekre
+  → Jelentsd vissza!
+
+================================================================================
+TIPIKUS JELEK
+================================================================================
+
+NORMÁL MÓD (működés):
+  - Frekvencia látszik kijelzőn
+  - Csatorna név
+  - Signal strength
+  - Rádió működik
+
+PROGRAMMING MÓD (firmware update):
+  - Üres kijelző
+  - "PROG" felirat
+  - Villogó LED
+  - Rádió NEM működik normálisan
+  - Semmi hang
+
+================================================================================
+ALTERNATÍVA: KONFIG FÁJL (.DAT) MÓDOSÍTÁS
+================================================================================
+
+Ha firmware update egyáltalán nem megy:
+
+PRÓBÁLD A .DAT FÁJL FELTÖLTÉSÉT:
+
+Fájl: TK11_K38_MODE_01_20251029_150652.dat (AM mód)
+
+1. TK11.exe (eredeti vagy _nover)
+2. File → Open → TK11_K38_MODE_01_*.dat
+3. Radio → Write to Radio
+4. Ez MŰKÖDNI KELL (normál programming)
+
+EREDMÉNY:
+  - K38 csatorna AM módban
+  - TX működik (nincs DISABLE)
+  - Azonnal használható!
+
+HÁTRÁNY:
+  - RX nem USB (hanem AM)
+  - Nem optimális SSB vételhez
+
+ELŐNY:
+  - MŰKÖDIK azonnal
+  - Nincs firmware flash
+  - Biztonságos
+
+================================================================================
+
+PRÓBÁLD A GOMBKOMBINÁCIÓKAT!
+
+ÉS JELENTSD VISSZA MELYIK MŰKÖDÖTT!
+
+73! 📻
+
+================================================================================

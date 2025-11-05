@@ -1,0 +1,153 @@
+================================================================================
+TK11 HIBRID MÓD - ULTRA GYORS START
+================================================================================
+
+CÉLOD:
+  Vegyél USB/LSB módban, adj AM-ben (ugyanazon frekvencián)
+  → Kommunikálj SSB állomásokkal!
+
+MEGOLDÁS KÉSZ:
+  Firmware patch létrehozva ✓
+  USB TX engedélyezve ✓
+  RX=USB, TX=AM hibrid mód ✓
+
+================================================================================
+3 EGYSZERŰ LÉPÉS
+================================================================================
+
+[1] FIRMWARE FLASH
+------------------
+Fájl: patched_firmware\TK11_PATCHED_USB_TX_ENABLE_20251029_154257.bin
+
+⚠️ KOCKÁZATOS! Elronthatod a rádiót!
+⚠️ Olvasd el: FIRMWARE_FLASH_GUIDE.md
+
+Flash eljárás (lásd TK11 manuál):
+  1. Programozó kábel csatlakoztatása
+  2. TK11.exe firmware update mód
+  3. Patched firmware választása
+  4. Flash! (NE szakítsd meg!)
+
+[2] EREDETI KONFIGURÁCIÓ BETÖLTÉSE
+-----------------------------------
+Fájl: TK11.dat (EREDETI! Nincs módosítás!)
+
+  1. TK11.exe → Open → TK11.dat
+  2. Upload a rádióba
+  3. K38 USB csatorna már benne van!
+
+[3] TESZT DUMMY LOAD-DAL
+-------------------------
+  1. 50Ω dummy load csatlakoztatása
+  2. K38 USB csatorna kiválasztása (2.7385 MHz)
+  3. PTT nyomás
+
+  SIKERES HA: Nincs "DISABLE" üzenet! ✓
+
+================================================================================
+MI TÖRTÉNIK?
+================================================================================
+
+ELŐTTE:
+  K38 USB: RX=USB ✓, TX=DISABLED ✗
+
+UTÁNA:
+  K38 USB: RX=USB ✓, TX=AM ✓
+
+EREDMÉNY:
+  - Te hallod az SSB adókat (USB demod)
+  - Ők hallanak téged (AM tartalmaz USB-t)
+  - Kétirányú kommunikáció működik!
+
+================================================================================
+MIÉRT JÓ EZ?
+================================================================================
+
+AM MODULÁCIÓ = Carrier + LSB + USB
+                         ^^^--- Ezt hallja az SSB vevő!
+
+USB DEMODULÁCIÓ = Csak felső oldalsáv
+                  Tisztán hallod az SSB adót!
+
+→ HIBRID MÓD = Kompatibilis SSB-vel! ✓
+
+================================================================================
+SPEKTRUM TESZT
+================================================================================
+
+PTT közben spektrum analizátoron (2.7385 MHz):
+
+Ha ezt látod:
+       /\           ← Carrier
+      /  \
+   /\ |  | /\       ← Sidebands
+  /  \|  |/  \
+ ─────┴──┴─────
+  LSB  C  USB
+
+→ TÖKÉLETES! AM moduláció ✓
+  Ez pontosan az, amit akarsz!
+
+================================================================================
+FÁJLOK
+================================================================================
+
+PATCHED FIRMWARE:
+  patched_firmware\TK11_PATCHED_USB_TX_ENABLE_*.bin  ← Flash ezt!
+
+BACKUP:
+  patched_firmware\TK11_ORIGINAL_*.bin               ← Rollback
+
+KONFIGURÁCIÓ:
+  TK11.dat (eredeti)                                 ← Upload ezt!
+
+RÉSZLETES ÚTMUTATÓ:
+  HIBRID_MOD_MAGYAR.txt    (magyar, részletes)
+  HYBRID_MODE_GUIDE.md     (angol, nagyon részletes)
+  FIRMWARE_FLASH_GUIDE.md  (firmware flash útmutató)
+
+================================================================================
+KÉRDÉSEK?
+================================================================================
+
+Q: Működni fog?
+A: RX=USB már most is működik. TX valószínűleg AM lesz (hardware limit).
+
+Q: Biztonságos?
+A: Firmware flash KOCKÁZATOS! Elronthatod a rádiót!
+
+Q: Garancia?
+A: Elvész a firmware módosítással.
+
+Q: Mi van ha nem működik?
+A: Reflash az eredeti firmware-t (TK11_ORIGINAL_*.bin).
+
+Q: SSB állomás hall engem?
+A: IGEN! AM tartalmazza az USB komponenst.
+
+Q: Én hallom az SSB állomást?
+A: IGEN! USB demoduláció működik.
+
+Q: CB sávon (27 MHz) használható?
+A: IGEN! Létrehozhatsz CB csatornákat mode 0x04-ben.
+
+================================================================================
+DÖNTÉS
+================================================================================
+
+Vállalod a firmware flash kockázatát?
+
+  [IGEN] → Flash a patched firmware-t
+          Olvasd el: FIRMWARE_FLASH_GUIDE.md
+          Aztán flash: TK11_PATCHED_USB_TX_ENABLE_*.bin
+
+  [NEM]  → Maradj a jelenlegi állapotnál
+          Vagy használd az AM módot (TK11_K38_MODE_01_*.dat)
+
+================================================================================
+
+MINDEN KÉSZ! A DÖNTÉS A TIÉD!
+
+73! 📻
+
+================================================================================

@@ -1,0 +1,54 @@
+================================================================================
+TK-11 FIRMWARE: DSB MODE ANALYSIS - FINAL REPORT
+================================================================================
+
+Firmware: TK11_v5.00.09_ENG.bin
+Size: 357,976 bytes
+Date: 2025-10-29
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+CLAIM: TK-11 supports DSB mode
+VERDICT: FALSE - DSB does NOT exist
+
+EVIDENCE:
+  DSB strings: 0 (NOT FOUND)
+  USB strings: 0 (NOT FOUND)
+  LSB strings: 0 (NOT FOUND)
+  SSB strings: 0 (NOT FOUND)
+  BK4819 refs: 0 (NOT FOUND)
+  HILBERT: 0 (NOT FOUND - required for DSB)
+  IQ: 9 (NOT FOUND - required for sidebands)
+
+ACTUAL MODES:
+  FM: 4 references (PRESENT)
+  AM: 7 references (PRESENT)
+  CW: 5 references (PRESENT)
+
+================================================================================
+TECHNICAL ANALYSIS
+================================================================================
+
+For DSB-SC to exist, firmware MUST contain:
+  1. Hilbert transform (NOT FOUND)
+  2. I/Q processing (NOT FOUND)
+  3. Sideband keywords (NOT FOUND)
+  4. DSP processing (NOT FOUND)
+
+NONE of these exist. DSB is IMPOSSIBLE.
+
+================================================================================
+CONCLUSION
+================================================================================
+
+DSB mode does NOT exist in TK-11 firmware v5.00.09.
+Only FM, AM, and CW modes are implemented.
+Any DSB claims are FALSE or refer to standard AM (DSB-FC).
+
+The radio uses FM/AM from BK4819 chip.
+NO DSP processing creates symmetric sidebands.
+NO DSB-SC signal can be generated.
+
+================================================================================

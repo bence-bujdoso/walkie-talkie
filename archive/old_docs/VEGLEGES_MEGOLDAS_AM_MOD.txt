@@ -1,0 +1,270 @@
+================================================================================
+TK11 MŰKÖDŐ MEGOLDÁS - AM MÓD
+================================================================================
+
+FIRMWARE PATCHING NEM SIKERÜLT
+------------------------------
+A patched firmware-t a rádió bootloader-e elutasítja ("File version is Wrong")
+mert custom/proprietary checksum algoritmust használ ami nem standard.
+
+Próbált megoldások:
+  [X] 12 különböző checksum fix (CRC32, sum, különböző offsetek)
+  [X] Advanced checksum algoritmusok (Fletcher32, Adler32, CRC16, stb.)
+  [X] Version string keresés
+
+Eredmény: Egyik sem működött.
+
+Következtetés: Reverse engineering szükséges (dnSpy/ILSpy a TK11.exe-re),
+vagy hardveres JTAG/SWD programozás - mindkettő bonyolult és kockázatos.
+
+================================================================================
+MŰKÖDŐ ALTERNATÍV MEGOLDÁS: AM MÓD
+================================================================================
+
+ELŐNYÖK:
+--------
+[OK] MŰKÖDIK azonnal
+[OK] Nincs firmware flash (biztonságos)
+[OK] Nincs brick kockázat
+[OK] TX biztosan működik
+[OK] SSB állomások tudják venni
+
+HÁTRÁNYOK:
+----------
+[X] RX is AM (nem USB)
+[X] Nem optimális SSB/USB vételhez
+[X] Több zaj AM demodulációval
+
+KOMPROMISSZUM:
+--------------
+Bár nem tökéletes (RX nem USB), DE:
+  - TX működik AM-ben
+  - AM moduláció tartalmazza az USB sidebandot
+  - SSB állomások dekódolni tudják
+  - Kommunikáció LEHETSÉGES SSB állomásokkal
+
+================================================================================
+TELEPÍTÉSI ÚTMUTATÓ
+================================================================================
+
+LÉPÉS 1: FÁJL KIVÁLASZTÁSA
+---------------------------
+Használd ezt a konfigurációs fájlt:
+
+  E:\AI\tk11\TK11_K38_MODE_01_20251029_150652.dat
+
+Ez a fájl tartalmazza:
+  - K38 csatorna: 27.385 MHz (CB csatorna 38)
+  - RX mód: AM
+  - TX mód: AM
+  - TX engedélyezve
+
+
+LÉPÉS 2: TK11.EXE INDÍTÁSA
+---------------------------
+1. Dupla kattintás: E:\AI\tk11\TK11.exe (EREDETI exe!)
+   (Nem kell TK11_nover.exe)
+
+2. VAGY TK11_nover.exe is jó
+
+
+LÉPÉS 3: KONFIGURÁCIÓ BETÖLTÉSE
+--------------------------------
+1. TK11.exe-ben: File → Open
+2. Válaszd ki: TK11_K38_MODE_01_20251029_150652.dat
+3. Kattints: OK
+
+
+LÉPÉS 4: ELLENŐRZÉS
+--------------------
+TK11.exe-ben látni kell:
+
+Csatorna lista:
+  - K38 csatorna látható
+  - RX: 27.385 MHz
+  - TX: 27.385 MHz
+  - Mode: 01 (AM)
+
+Ha látod → Rendben van!
+
+
+LÉPÉS 5: RÁDIÓHOZ CSATLAKOZÁS
+------------------------------
+1. Programozó kábel csatlakoztatása (rádió + PC)
+2. Rádió BE kapcsolva (NORMÁL működés, nem firmware update mód!)
+3. Device Manager: ellenőrizd COM port (pl. COM3)
+4. TK11.exe: Settings → Port → Válaszd ki a COM portot
+
+
+LÉPÉS 6: FELTÖLTÉS RÁDIÓRA
+---------------------------
+1. TK11.exe-ben: Radio → Write to Radio
+2. Várd meg amíg befejezi (progress bar)
+3. Sikeres üzenet: "Write successful" vagy hasonló
+4. Kész!
+
+
+LÉPÉS 7: TESZTELÉS
+-------------------
+1. Rádióban válaszd ki a K38 csatornát
+2. Állítsd be 27.385 MHz-re (ha nem automatikus)
+3. Hallgass SSB állomást:
+   - RX AM módban van (nem ideális, de működik)
+   - Hallani fogod a jelet (bár AM demod-dal)
+
+4. ADÁS TESZT:
+   - Nyomd meg a PTT gombot
+   - NEM szabad "DISABLE" felirat!
+   - Beszélj a mikrofonba
+   - TX AM módban működik
+   - SSB állomások tudják venni!
+
+
+================================================================================
+MIÉRT MŰKÖDIK EZ?
+================================================================================
+
+AM MODULÁCIÓ ÉS SSB KOMPATIBILITÁS:
+------------------------------------
+
+AM moduláció = Carrier + USB + LSB (mindkét sideband)
+
+SSB receiver csak az USB sidebandot használja → Dekódolni tudja az AM jelet!
+
+Példa:
+  TX (TK11): 27.385 MHz AM moduláció
+    - Carrier: 27.385 MHz
+    - USB sideband: 27.385 + 0.003 MHz (300-3000 Hz audio)
+    - LSB sideband: 27.385 - 0.003 MHz
+
+  RX (SSB állomás): USB demod 27.385 MHz-en
+    - Csak az USB sidebandot dekódolja
+    - Hallja a beszédet!
+
+MŰKÖDIK!
+
+
+================================================================================
+RX PROBLÉMA (AM DEMOD):
+================================================================================
+
+Ha te szeretnél SSB/USB állomást hallani:
+  - Rádió AM demod-ot használ
+  - Nem tökéletes USB/LSB vételhez
+  - Több zaj, kevésbé szelektív
+
+DE:
+  - Hallani fogod a jelet
+  - Érthetően
+  - Csak nem lesz olyan tiszta mint USB demod-dal
+
+
+================================================================================
+KÖVETKEZŐ LÉPÉSEK
+================================================================================
+
+OPCIÓ A: HASZNÁLD AZ AM MÓDOT
+------------------------------
+  - Telepítsd most
+  - Teszteld hogy működik-e
+  - Használd SSB állomásokkal való kommunikációra
+  - Elfogadható kompromisszum
+
+
+OPCIÓ B: VÁRJ FIRMWARE FIX-RE
+------------------------------
+  - Reverse engineering TK11.exe (dnSpy)
+  - Találd meg a checksum algoritmust
+  - Generálj helyes checksum-ot
+  - Flash-eld a patched firmware-t
+  - Hibrid mód: RX=USB, TX=AM (tökéletes)
+
+  IDŐ: Több óra/nap reverse engineering munka
+  KOCKÁZAT: Bonyolult, lehet hogy nem sikerül
+
+
+OPCIÓ C: HARDVERES PROGRAMOZÁS (JTAG/SWD)
+------------------------------------------
+  - ST-Link vagy J-Link adapter
+  - Debug port megtalálása a rádióban
+  - OpenOCD használata
+  - Direkt flash memory írás (bypass bootloader)
+
+  IDŐ: Több óra
+  KOCKÁZAT: MAGAS - brick potential, hardver tapasztalat szükséges
+  NE próbáld hardver tapasztalat nélkül!
+
+
+================================================================================
+AJÁNLÁSOM
+================================================================================
+
+** HASZNÁLD AZ AM MÓDOT MOST! **
+
+Előnyök:
+  ✓ 5 perc alatt telepíthető
+  ✓ Biztonságos
+  ✓ Működik
+  ✓ Nincs brick kockázat
+  ✓ Tud kommunikálni SSB állomásokkal
+
+Hátrányok:
+  ✗ RX nem optimális USB vételhez
+
+DE: Ez egy WORKING SOLUTION!
+
+Később, ha időd van:
+  - Reverse engineer-elheted a TK11.exe-t
+  - Megtalálhatod a checksum algoritmust
+  - Akkor upgrade-elhetsz hybrid módra
+
+DE MOST van egy MŰKÖDŐ megoldásod!
+
+
+================================================================================
+TELEPÍTÉS MOST
+================================================================================
+
+GYORS LÉPÉSEK:
+
+1. TK11.exe megnyitása
+
+2. File → Open → TK11_K38_MODE_01_20251029_150652.dat
+
+3. Radio → Write to Radio
+
+4. PTT teszt → MŰKÖDIK!
+
+5. 73! 📻
+
+
+================================================================================
+KÉRDÉSEK?
+================================================================================
+
+Q: Mennyire rossz az AM RX SSB vételhez?
+A: Nem tökéletes, de működik. Hallani fogod az állomást, érthetően.
+   Csak nem lesz olyan tiszta mint USB demod-dal.
+
+Q: Lehet később upgrade hybrid módra?
+A: Igen, ha sikerül a firmware checksum-ot megfejteni.
+   Akkor újra lehet próbálkozni a firmware flash-sel.
+
+Q: Biztonságos ez?
+A: IGEN! Ez csak config upload, nem firmware flash.
+   Nincs brick kockázat.
+   Bármikor vissza tudsz állni eredeti config-ra.
+
+Q: SSB állomások tudnak velem beszélni?
+A: IGEN! AM TX tartalmazza az USB sidebandot, amit ők dekódolni tudnak.
+
+
+================================================================================
+
+TELEPÍTSD ÉS TESZTELD!
+
+Ha működik, jelentsd vissza!
+
+73! 📻
+
+================================================================================

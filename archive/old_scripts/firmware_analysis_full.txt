@@ -1,0 +1,148 @@
+================================================================================
+TK11 FIRMWARE REVERSE ENGINEERING REPORT
+================================================================================
+
+File: E:\AI\tk11\TK11_v5.00.09_ENG.bin
+Size: 357976 bytes (349.59 KB)
+
+================================================================================
+1. FIRMWARE HEADER ANALYSIS
+================================================================================
+Magic Bytes: 98578420d4fd0b04ee8eafb09c823d59...
+
+================================================================================
+2. ASCII STRING EXTRACTION
+================================================================================
+Total strings found: 1676
+
+Sample strings (first 30):
+  0x00000213: $)2~rg
+  0x00000286: _|!X(
+  0x000003FD: V4xKs?m
+  0x00000442: EL9YFo1
+  0x000006E3: qbADv
+  0x0000070D: *WdIeL
+  0x000007DC: d:Lk/
+  0x000007EB: oQ(#\
+  0x000008A5: c_u\*
+  0x000009B9: s{I.L
+  0x00000A27: Ti]"X
+  0x00000AF3: gajrv
+  0x00000BFA: gU,jL
+  0x00000C13: @3])i
+  0x00000D06: q\Gqe
+  0x00000DF0: =%[Ppw.B
+  0x00000E05: V:zwC\l
+  0x00000EC9: +}bxV/
+  0x00000FE3: @^r>Hl
+  0x0000112E: }KOW;
+  0x000012BC: 'C/@2
+  0x0000136F: Rp*E8
+  0x000013EC: ecXCY
+  0x000013FB: 1W;$Z
+  0x00001445: ?7 {l
+  0x00001470: R:/zrq
+  0x00001490: $aV6A
+  0x0000155F: ?~DFZ
+  0x00001653: eS3GN
+  0x0000194D: ;rH(`#]t
+
+================================================================================
+3. MODULATION KEYWORD SEARCH
+================================================================================
+
+*** CRITICAL FINDINGS - SSB/CW MODE DETECTION ***
+
+[FOUND] 'CW' - 5 occurrences:
+  Offset: 0x0002E0E0
+  Context: d555cfa463299932daa7f53e0b360a32e16ac4872362daf1c5e0aac24c6bdbcb43573284f34a8c2f...
+  Offset: 0x0002EA5E
+  Context: 48b9e05584c035f551855831f56c62ccf58e4204b4b87f000c37feb84fd4df844357b4b6aac91b71...
+  Offset: 0x00036F84
+  Context: 11e2c043070c58f0373e41a3dbf56f00d6a84922ace8944a9c40561aefd64d704357f7627b2bb997...
+  Offset: 0x00037C74
+  Context: 6ce48ecce88f1a512ea4041543a0fd9699014816ca88cb207cf24ea3f2e2682f4357b771412d3dd8...
+  Offset: 0x0003CB67
+  Context: 2ff80b5b09a3f82213cb066a63a069d110f9df55e6bdcf46d46b5d6030d2a88043575559302b5619...
+
+*** ALL MODULATION-RELATED KEYWORDS ***
+
+'AM': 7 occurrence(s)
+  @ 0x00003AFB
+  @ 0x0000D4DB
+  @ 0x0000D598
+
+'CW': 5 occurrence(s)
+  @ 0x0002E0E0
+  @ 0x0002EA5E
+  @ 0x00036F84
+
+'FM': 4 occurrence(s)
+  @ 0x00010EBA
+  @ 0x00012DAB
+  @ 0x0002720F
+
+'RX': 5 occurrence(s)
+  @ 0x00008AAD
+  @ 0x00014503
+  @ 0x0001B49C
+
+'Rx': 3 occurrence(s)
+  @ 0x0001C7A7
+  @ 0x00029FC9
+  @ 0x000376F3
+
+'TX': 8 occurrence(s)
+  @ 0x000033C2
+  @ 0x0000444A
+  @ 0x0002574A
+
+'Tx': 2 occurrence(s)
+  @ 0x0001DA0E
+  @ 0x0003401F
+
+'am': 5 occurrence(s)
+  @ 0x0000140D
+  @ 0x0002E4B5
+  @ 0x000381C6
+
+'cw': 7 occurrence(s)
+  @ 0x00005EEE
+  @ 0x0000E10D
+  @ 0x0001555E
+
+'fm': 5 occurrence(s)
+  @ 0x000061B7
+  @ 0x00017106
+  @ 0x0002CEB3
+
+'rx': 2 occurrence(s)
+  @ 0x0003D3C6
+  @ 0x000560C6
+
+'tx': 2 occurrence(s)
+  @ 0x00020352
+  @ 0x00029C14
+
+================================================================================
+4. FREQUENCY RANGE ANALYSIS
+================================================================================
+No standard frequency patterns detected
+
+================================================================================
+5. MODE CONTROL PATTERN ANALYSIS
+================================================================================
+Potential mode configuration structures found: 4
+
+First 10 candidates:
+  1. Offset 0x00002F0E: b62c2f46b62875689bc6b631c76f5e9b75fd7510
+  2. Offset 0x00024359: d3bfe60378e9951c3d0c7845e6d8d3463a83d37c
+  3. Offset 0x0004E98D: eaf70b8b2ee8fd77ea54594ffd4588a5fdbf596b
+  4. Offset 0x00050577: 0046f0d7366ceff6f02c004382cdb46836dd82b8
+
+================================================================================
+DETAILED RESULTS SAVED TO:
+  - E:\AI\tk11\firmware_strings_full.txt
+  - E:\AI\tk11\firmware_keywords.txt
+  - E:\AI\tk11\firmware_mode_patterns.txt
+================================================================================

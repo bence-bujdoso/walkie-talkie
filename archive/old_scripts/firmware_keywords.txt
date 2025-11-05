@@ -1,0 +1,271 @@
+TK11 FIRMWARE - MODULATION KEYWORD ANALYSIS
+================================================================================
+
+
+============================================================
+KEYWORD: 'AM' (7 occurrences)
+============================================================
+
+Offset: 0x00003AFB
+Context (hex): 444087915ef01137ad743f59709f21eabcdfda6c58afce6482e0ea446d0a8926414de306a7e545e9d45409520de611cd3b6d8feac7e5cfcf89265fea8485b81706f8
+Context (ASCII): D@..^..7.t?Yp.!....lX..d...Dm..&AM....E..T.R....;m.......&_.......
+
+Offset: 0x0000D4DB
+Context (hex): 1c82f795f980f5f1fadc67a6bffc0b3bb9f84697291400614e13b0669f002e71414d8cd5b64f51e8d244bbbc62aec3ab33d040ae7d3f37911e97421f1f132224f30f
+Context (ASCII): ..........g....;..F.)..aN..f...qAM...OQ..D..b...3.@.}?7...B..."$..
+
+Offset: 0x0000D598
+Context (hex): cb642d5cf717710610ec4c7ef9eff99503c73b774a809a0bb2c736a129a7da84414dc92ced2a528a6eec00e5ebc6d4e8d19570dcb3aaf9e7e74cdb0017236e48c966
+Context (ASCII): .d-\..q...L~......;wJ.....6.)...AM.,.*R.n.........p......L...#nH.f
+
+Offset: 0x00016220
+Context (hex): 5d1f719a7940b3d755f9c98e4183862b58c53710819ab3f08ff36c5f9ab780a0414df8e8c1af0662e6d924eec822a0b4782124b29a35f486d2421ee9742d4bf68384
+Context (ASCII): ].q.y@..U...A..+X.7.......l_....AM.....b..$.."..x!$..5...B..t-K...
+
+Offset: 0x00033EFD
+Context (hex): 3dfc466794053311fe353d6e8f03febe00df9b782ec56e9deb85583f38a5b550414de24a165ac5346b9806c801020cf10af6044eaafd58df3e415aa3a6373d2c8b57
+Context (ASCII): =.Fg..3..5=n.......x..n...X?8..PAM.J.Z.4k..........N..X.>AZ..7=,.W
+
+Offset: 0x0004B399
+Context (hex): bef6e46c02e0ae433445ccc0b0c4bbffab36946e5911ccfd0a26a79b4f7bd13f414d8dd5ea9e9c837d87b42baf70fbcd02cb99107b4c88bd40c8dfb67f3e60359953
+Context (ASCII): ...l...C4E.......6.nY....&..O{.?AM......}..+.p......{L..@....>`5.S
+
+Offset: 0x00052D18
+Context (hex): 82a2ccc2e7a63e188d13da1454d3db5fc16b7731c80c9a99aa177d99ee7b49fa414d4203b06463c9dc22ef4968f93804e40e039b140f55a7b19733a55456e7abb89b
+Context (ASCII): ......>.....T.._.kw1......}..{I.AMB..dc..".Ih.8.......U...3.TV....
+
+============================================================
+KEYWORD: 'CW' (5 occurrences)
+============================================================
+
+Offset: 0x0002E0E0
+Context (hex): d555cfa463299932daa7f53e0b360a32e16ac4872362daf1c5e0aac24c6bdbcb43573284f34a8c2f4c62bcaa65a50097852e75c2153a5e5fa4eb2e08941f326a1e63
+Context (ASCII): .U..c).2...>.6.2.j..#b......Lk..CW2..J./Lb..e.....u..:^_......2j.c
+
+Offset: 0x0002EA5E
+Context (hex): 48b9e05584c035f551855831f56c62ccf58e4204b4b87f000c37feb84fd4df844357b4b6aac91b711f789fbee24eff159f94171623dfc5e277596454b622182da346
+Context (ASCII): H..U..5.Q.X1.lb...B......7..O...CW.....q.x...N......#...wYdT.".-.F
+
+Offset: 0x00036F84
+Context (hex): 11e2c043070c58f0373e41a3dbf56f00d6a84922ace8944a9c40561aefd64d704357f7627b2bb997cab48c1b1eb99c2dc60eb8ca71633417f579d989d3bb252c50e8
+Context (ASCII): ...C..X.7>A...o...I"...J.@V...MpCW.b{+.........-....qc4..y....%,P.
+
+Offset: 0x00037C74
+Context (hex): 6ce48ecce88f1a512ea4041543a0fd9699014816ca88cb207cf24ea3f2e2682f4357b771412d3dd81127fceb6f06876d25e0edd91fcb32eb7e9a709f669835d22fc6
+Context (ASCII): l......Q....C.....H.... |.N...h/CW.qA-=..'..o..m%.....2.~.p.f.5./.
+
+Offset: 0x0003CB67
+Context (hex): 2ff80b5b09a3f82213cb066a63a069d110f9df55e6bdcf46d46b5d6030d2a88043575559302b5619d67324eb848632b8e9ba65ba49797a2a6bea4a4a98435d612c14
+Context (ASCII): /..[..."...jc.i....U...F.k]`0...CWUY0+V..s$...2...e.Iyz*k.JJ.C]a,.
+
+============================================================
+KEYWORD: 'FM' (4 occurrences)
+============================================================
+
+Offset: 0x00010EBA
+Context (hex): 8a924d5791d25c0ef2d2da1c140e97e588f8bb1f9c0987f3625f23dd55041a3c464d17eac88d5323c390b281791ecd99583bd201cf4b1d2d927362168d22aa7203e2
+Context (ASCII): ..MW..\.................b_#.U..<FM....S#....y...X;...K.-.sb..".r..
+
+Offset: 0x00012DAB
+Context (hex): 17f8a1af0bb70da766073085b6e4a51ad2c6ecab82b8c7965d7e328f6b8fa394464d65502c7f7a9d1f75ab18d05dbae64c05ed8245f3ef071e8a337f45232c780fd8
+Context (ASCII): ........f.0.............]~2.k...FMeP,.z..u...]..L...E.....3.E#,x..
+
+Offset: 0x0002720F
+Context (hex): 53cd436385b69f451741a82603035bb850854629f8b3d468e550b35a425c46b2464d256fa6278370e8906d8ab7d6d2b0080ede3643581bfa2b56445ce3e61265fd68
+Context (ASCII): S.Cc...E.A.&..[.P.F)...h.P.ZB\F.FM%o.'.p..m........6CX..+VD\...e.h
+
+Offset: 0x0003152C
+Context (hex): 5cfc463870cfb16ee7106c90821cdd48279bde2950f1b236b8b5583a83fe9eeb464db4f3b95bec029d756045bdebfce6c22211d8de910e36432db839c7abf8791172
+Context (ASCII): \.F8p..n..l....H'..)P..6..X:....FM...[...u`E.....".....6C-.9...y.r
+
+============================================================
+KEYWORD: 'RX' (5 occurrences)
+============================================================
+
+Offset: 0x00008AAD
+Context (hex): de67a7bc5d0abb92d180ffe0f8c91504d2c4052f5d49264225bf770c6cae0bf65258c5145decd5a3627d705fb2372cfce8ce68dd1f7e9bdefd0023742ce8626aeed9
+Context (ASCII): .g..]............../]I&B%.w.l...RX..]...b}p_.7,...h..~....#t,.bj..
+
+Offset: 0x00014503
+Context (hex): 8049aa15a841b8fb1f74ba79481c97a094001f251dff0fcd82f308461d1fd1fc525895eb2a875b5d2f9092ca9df0c170e6aedb804f3f6926c9442fc8518a059702e4
+Context (ASCII): .I...A...t.yH......%.......F....RX..*.[]/......p....O?i&.D/.Q.....
+
+Offset: 0x0001B49C
+Context (hex): fda943c494bd47cea47683ee1169027d3eb8bc571d4490eec8acd48a3a502fa15258b782a419cc77b41d051acbd1edeeab0f02b95e2c6a9cfe525b199509d304a85f
+Context (ASCII): ..C...G..v...i.}>..W.D......:P/.RX.....w............^,j..R[......_
+
+Offset: 0x0001CA37
+Context (hex): 741b270a5757ee6b18f5277816542626785f1e4aac11e8e74da2fa2d62ad54a65258bf1c0aa95bf205477ab36b8c263e646510ce090ae83d1504f57b8fff36445102
+Context (ASCII): t.'.WW.k..'x.T&&x_.J....M..-b.T.RX....[..Gz.k.&>de.....=...{..6DQ.
+
+Offset: 0x0001F3EF
+Context (hex): 77632029c9d6e33f3c132e8bb9b00c8670d9fe81e80ab416e1c20f6baa79eacd5258ff758d9860b4881ffe0d053ebe314259b3ddc2894ac4ec95f86d22f596385a4b
+Context (ASCII): wc )...?<.......p..........k.y..RX.u..`......>.1BY....J....m"..8ZK
+
+============================================================
+KEYWORD: 'Rx' (3 occurrences)
+============================================================
+
+Offset: 0x0001C7A7
+Context (hex): 14647dcf11bc44ed9ba5c183e23fa1d6e4075f58c5fda79a97d21342f8248fe852782a88a3834d3ab0ffe587abbc542149be8f26c3d71ce5b507f9ddced396edefe0
+Context (ASCII): .d}...D......?...._X.......B.$..Rx*...M:......T!I..&..............
+
+Offset: 0x00029FC9
+Context (hex): 9f7c5f418dd62802bd2abc0402faaa9933cd7427f3c06c0b7869786d5f3037975278d4f86f33694f1a2315dcd8422e14ff46533b28b01c5d12eff8178bb12331a238
+Context (ASCII): .|_A..(..*......3.t'..l.xixm_07.Rx..o3iO.#...B...FS;(..]......#1.8
+
+Offset: 0x000376F3
+Context (hex): d948a0db18d939c693b8774bee5cd69465faf998f9b4bbab5429edde31c0523b527867789fba84c0991ad3201ed434d570962da11c67a08d501834cca20a5fc80720
+Context (ASCII): .H....9...wK.\..e.......T)..1.R;Rxgx....... ..4.p.-..g..P.4..._.. 
+
+============================================================
+KEYWORD: 'TX' (8 occurrences)
+============================================================
+
+Offset: 0x000033C2
+Context (hex): 7b6617fd805e037b50050b09a27f9b6c99d12cae85d92602c65c63ad9a66237e5458647b0ce8e1ac36bbaad30d309a7ef9c8ad81f65737c9b75e7010fe8f2581ed6b
+Context (ASCII): {f...^.{P......l..,...&..\c..f#~TXd{....6....0.~.....W7..^p...%..k
+
+Offset: 0x0000444A
+Context (hex): 22a82467b260ac8f501ae0e71faa5f9b756f17166ff9b2a2b448721c496542a65458361dd3a890691cada0cdbd48a35ab1f1018903eee81bde222ee23f008bdd2be9
+Context (ASCII): ".$g.`..P....._.uo..o....Hr.IeB.TX6....i.....H.Z........."..?...+.
+
+Offset: 0x0002574A
+Context (hex): 526774c110013ba475ce3ea92d1feaba39ffa5d6a84c350de668d4f24e2af8ac5458c884e674cd2cd34206f379d941893ea33ebdb2321b3985499cf1fec6702ce5fa
+Context (ASCII): Rgt...;.u.>.-...9....L5..h..N*..TX...t.,.B..y.A.>.>..2.9.I....p,..
+
+Offset: 0x00036321
+Context (hex): 8013c0649ef36cd728cb29e0d43fbffde8dc16800ed16ba82551859b9f61f00454588518b681d6f7478ecd78772e6133d0ab021a72a639a4485faa8f49ddb4494d78
+Context (ASCII): ...d..l.(.)..?........k.%Q...a..TX......G..xw.a3....r.9.H_..I..IMx
+
+Offset: 0x0003B8B3
+Context (hex): 7d3ed7e27c17ae4187c83fd837a026ef80c4b166f652f6e8e7744a67e2969c78545863e150c5a055f7d245982be9d726ec45ec8c0ca4b8aa88fc042d368bc00dfb40
+Context (ASCII): }>..|..A..?.7.&....f.R...tJg...xTXc.P..U..E.+..&.E.........-6....@
+
+Offset: 0x0003E2B6
+Context (hex): d25688784e8c7cad1801f4c4f54580ebc1eb0ca0b5542bdefbc95b941c6fc43a54585d3da21d6a3cb4bc72fe02b2a9348fafdc890ac175f984331a1b913c6133f968
+Context (ASCII): .V.xN.|......E.......T+...[..o.:TX]=..j<..r....4......u..3...<a3.h
+
+Offset: 0x0004DDCB
+Context (hex): 818338289f08681cb64a75c6d2a8474764d29cf9a259cc426be9f5ed5b49e0435458856c47d2f7f0d89460babf9e10afd7cf5cf4aac53c35d7cb8a984c2a828c05ba
+Context (ASCII): ..8(..h..Ju...GGd....Y.Bk...[I.CTX.lG.....`.......\...<5....L*....
+
+Offset: 0x0005697E
+Context (hex): afb9086b7f0e801577b678f53efe7628f720764e5929f39a67abd3aa1a80ada85458ab3673585b73fa6aa3362ce201bc25072566d035ce262b9c3f7e1749d2fb4f5f
+Context (ASCII): ...k....w.x.>.v(. vNY)..g.......TX.6sX[s.j.6,...%.%f.5.&+.?~.I..O_
+
+============================================================
+KEYWORD: 'Tx' (2 occurrences)
+============================================================
+
+Offset: 0x0001DA0E
+Context (hex): cb6458871bfa481bfeda55cb794030cfda80602871ab06538aaf6688a8d895ba54786749877c7b063de470fb35f3e5e16efc5a31814908f2ecbc029b9963b41edd33
+Context (ASCII): .dX...H...U.y@0...`(q..S..f.....TxgI.|{.=.p.5...n.Z1.I.......c...3
+
+Offset: 0x0003401F
+Context (hex): 907258b8cf2dd4b74589f9ff50f40ae72571030b589e0ddc8ddb80ab464ac1cc5478cad69c5d7c7a88cee8a4845b29247b7604693b920749061ed6efd7b2dce3a924
+Context (ASCII): .rX..-..E...P...%q..X.......FJ..Tx...]|z.....[)${v.i;..I.........$
+
+============================================================
+KEYWORD: 'am' (5 occurrences)
+============================================================
+
+Offset: 0x0000140D
+Context (hex): 63584359d24f73c368f4a24fb67f31573b245a145d9783d50831fd985d3fe39f616d4f8722222a24a45953ba7651e67ff80fd81ab417f72df4165f570bdf1fe04071
+Context (ASCII): cXCY.Os.h..O..1W;$Z.]....1..]?..amO.""*$.YS.vQ.........-.._W....@q
+
+Offset: 0x0002E4B5
+Context (hex): 61f6dd6d796d4a8968ed734e7ab516ea470db9999f93ad1406c1c2466e2cb539616db0c9c2de1246a897e9b4105a81bdb24a7234a47d45e96f7d3097e06503c20c49
+Context (ASCII): a..mymJ.h.sNz...G..........Fn,.9am.....F.....Z...Jr4.}E.o}0..e...I
+
+Offset: 0x000381C6
+Context (hex): eac6105b0bbfe3e26f31886dd298994aa868f3d128349b6f21c3e3018059c923616d143b3a80070518cefab0a82b35edae401d7e7ce15efcd1a9612adf6d6e77d75e
+Context (ASCII): ...[....o1.m...J.h..(4.o!....Y.#am.;:........+5..@.~|.^...a*.mnw.^
+
+Offset: 0x0003C1AD
+Context (hex): 78b7bdd491d97d8bf166405a4ea779f91baf5b44953e48f52cab50aca2381b56616dd37950ddfadde1af5328fd7da9737d5494cbcdc442ec0d3085557dad6fdf2d46
+Context (ASCII): x.....}..f@ZN.y...[D.>H.,.P..8.Vam.yP.....S(.}.s}T....B..0.U}.o.-F
+
+Offset: 0x0004E22D
+Context (hex): b6cbd074fffe71f0fde183f57424bd9b6cd9e6911296ce9f1055d0d5d4dd42b4616dd7a166e106558e9e66323647de5cc8016ffdc195a824cb7c6177f5db837822ec
+Context (ASCII): ...t..q.....t$..l........U....B.am..f..U..f26G.\..o....$.|aw...x".
+
+============================================================
+KEYWORD: 'cw' (7 occurrences)
+============================================================
+
+Offset: 0x00005EEE
+Context (hex): a667e08cacdfa72c47856c3f415138259bb35f6b655cba7097940d9a90eba6e9637765c01e0226371adba6929c75bcf055dc8e41b8a0752aa54dbc51db7b7ae439dd
+Context (ASCII): .g.....,G.l?AQ8%.._ke\.p........cwe...&7.....u..U..A..u*.M.Q.{z.9.
+
+Offset: 0x0000E10D
+Context (hex): 875a8f0b7149c5454621a95cba0e030b07c1a2c08c9f742a92d06b1b81c215446377c04a36f67b160e48689d07bef446494409add6023391adaff2931892ac43a515
+Context (ASCII): .Z..qI.EF!.\..........t*..k....Dcw.J6.{..Hh....FID....3........C..
+
+Offset: 0x0001555E
+Context (hex): 7c5ade8d1dd56a9dac7bc62f2a5825c9f580593e123cb3e233aa5b2eaa15167e637705f9ca501403f402fb728eeef4d998fc9e4cc7967e6334e503c3620c1a2adfae
+Context (ASCII): |Z....j..{./*X%...Y>.<..3.[....~cw...P.....r.......L..~c4...b..*..
+
+Offset: 0x0001D171
+Context (hex): 89c965a41288a9b40f9b5c9971ff3c2c5065682275a4e75c0ec228fef9ada5336377d8c0137e97c42fa4fb541836a60d5f54b67ef527cc95443facfadacfccbbdb70
+Context (ASCII): ..e.......\.q.<,Peh"u..\..(....3cw...~../..T.6.._T.~.'..D?.......p
+
+Offset: 0x0002C792
+Context (hex): 4a0f38a5b4ca702242a5b0c649a5f7b314b5834fd79f45c78728f36a8f4f656b6377a7913108b821d1a8a6de8de7d6534c38ecf9a8e5890a187431d250b80f8a6d7f
+Context (ASCII): J.8...p"B...I......O..E..(.j.Oekcw..1..!.......SL8.......t1.P...m.
+
+Offset: 0x00050D6F
+Context (hex): 0c03d60aa039b13310ba6017af1da38bc8356b64108bd17cd150172ab9b4b9d76377bef220b8e500b5cd17e9ee6790cff85add970bd9da1a9b4f26d4f0ffdcee5788
+Context (ASCII): .....9.3..`......5kd...|.P.*....cw.. ........g...Z.......O&.....W.
+
+Offset: 0x000570AB
+Context (hex): 6ed05eaef40933f979c00bdb8188b55d8cb675d78e236f66695fededd0c8c83c6377429f20a9b189f34dc0c194b97397ae1d7b17217d282555072db35ac8a021d371
+Context (ASCII): n.^...3.y......]..u..#ofi_.....<cwB. ....M....s...{.!}(%U.-.Z..!.q
+
+============================================================
+KEYWORD: 'fm' (5 occurrences)
+============================================================
+
+Offset: 0x000061B7
+Context (hex): 75a20b547faf3c9dd5f80330ca5d17e77d000adb99758f3a6d0146e619e5843c666d0324161478a6b8410e51c6a2bd1dc782cf24ca443e13e87cbc1abaea63c7ddbd
+Context (ASCII): u..T..<....0.]..}....u.:m.F....<fm.$..x..A.Q.......$.D>..|....c...
+
+Offset: 0x00017106
+Context (hex): 6e97fe1b026f089aed0e3c71c769e2dc58be42ce17f33f89414c264b44eaea23666d2aef269b3fd8d66de86febb013abaed8c91eb39106927d353588ec7a3b01b438
+Context (ASCII): n....o....<q.i..X.B...?.AL&KD..#fm*.&.?..m.o............}55..z;..8
+
+Offset: 0x0002CEB3
+Context (hex): 07c772f4de4141dba02f053eb0df52e881a7402dd665216d42cf9dd77f6ea9a3666d1015cdbf969181ff326c21bfcade38289745365b5f4906a220a003b107e67335
+Context (ASCII): ..r..AA../.>..R...@-.e!mB....n..fm........2l!...8(.E6[_I.. .....s5
+
+Offset: 0x0004FDB7
+Context (hex): d6e65624b227f78735c22c7ae7c84e96860a7c8c89f190cac39e4481283961df666d738c524a04843cd80398b1a4ea3ce4a4b284aa7ce437baf424df9e5169801ba0
+Context (ASCII): ..V$.'..5.,z..N...|.......D.(9a.fms.RJ..<......<.....|.7..$..Qi...
+
+Offset: 0x00052885
+Context (hex): 95409c5e9ac74c8becfdc69253409e401f3c891b8ebb5f38609758197ee1a2f6666d9268a7cc0d4856cba7f3f398798545c355c2f8e66305b3278466f9fa9e3ec8ef
+Context (ASCII): .@.^..L.....S@.@.<...._8`.X.~...fm.h...HV.....y.E.U...c..'.f...>..
+
+============================================================
+KEYWORD: 'rx' (2 occurrences)
+============================================================
+
+Offset: 0x0003D3C6
+Context (hex): c5e07d4cbd31a1273eb676619672cc7e39eabe3e49bef39b71a1a04fdc1efc83727859c47ad19671a457b236648ea4beb80b53aa00713a26f00261c5f6aa9c283494
+Context (ASCII): ..}L.1.'>.va.r.~9..>I...q..O....rxY.z..q.W.6d.....S..q:&..a....(4.
+
+Offset: 0x000560C6
+Context (hex): 03f6c825b3974f590a8e45be013e051f849058702507cac6639cda7eab5a553d7278f92f5e2dac2e4138e1c8cbd2a77226bc9cb809d7b5b1e349c7dacffd5908dbc6
+Context (ASCII): ...%..OY..E..>....Xp%...c..~.ZU=rx./^-..A8.....r&........I....Y...
+
+============================================================
+KEYWORD: 'tx' (2 occurrences)
+============================================================
+
+Offset: 0x00020352
+Context (hex): c416b6e59bca6b6e7135f1d1f64ff838bb5e2eb2e7af1671db8771f5513af0d174783bc0f0d192128522e2c0c7165ef74543e796c124c88bd589cd935e5018828f84
+Context (ASCII): ......knq5...O.8.^.....q..q.Q:..tx;......"....^.EC...$......^P....
+
+Offset: 0x00029C14
+Context (hex): 63a445070d7b477a5d2d44742c0252f10a1b3906d219d9b6aad37bbffe20bbe474780acab97f50717b3eb26cd5727a0284dcb6a7f4b26be1a7407ec473c21dc2506c
+Context (ASCII): c.E..{Gz]-Dt,.R...9.......{.. ..tx....Pq{>.l.rz.......k..@~.s...Pl

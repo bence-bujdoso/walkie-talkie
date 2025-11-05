@@ -1,0 +1,157 @@
+================================================================================
+TK11 FIRMWARE SSB MODE HUNTER
+Specialized analysis for USB/LSB/SSB mode detection
+================================================================================
+
+Firmware size: 357976 bytes (349.6 KB)
+
+================================================================================
+COMPREHENSIVE SSB/USB/LSB MODE SEARCH
+================================================================================
+
+[FOUND] MODE_USB_0x02: 1399 occurrence(s)
+  @ 0x00000228
+    Hex: 75 3c 1e e0 6b 90 fc a2 d0 64 fa 24 29 32 7e 72 67 0f bf 96 ec df e2 05 63 9a 49 81 7d b0 dc b9
+    ASCII: u<..k....d.$)2~rg.......c.I.}......W.<)P...Z...3f.L...pXs.S.7C..
+  @ 0x000004CC
+    Hex: 0f 2d 8a 07 33 92 8a a5 a4 52 60 52 b0 77 d1 05 ea 49 e4 b3 ef d8 c7 09 92 4b 3b 9d 98 e1 7c f2
+    ASCII: .-..3....R`R.w...I.......K;...|..U......K..V.@.eo..u[m..........
+  @ 0x00000629
+    Hex: 7c e5 b0 6a 2b 05 d0 33 f7 e7 69 63 c9 f1 aa 7b 86 8c 8c 2d 2f b8 b0 9c 0e 1d ff c2 6c 4a 57 b6
+    ASCII: |..j+..3..ic...{...-/.......lJW...tR..DX.A.+.*}.av...+......;..Z
+  @ 0x00000735
+    Hex: ff 51 66 6f be f1 f7 82 d3 86 f6 d7 94 92 58 b1 88 84 bf c5 4c 30 da db 3e cb 8e 5c d0 fc e2 61
+    ASCII: .Qfo..........X.....L0..>..\...a..Q..+@.X.xZ(x.^...D)....Za.....
+  @ 0x0000097B
+    Hex: 3a ca 79 dd e0 3e 72 59 80 fd 6e ee 97 6d 10 88 9e e9 93 b9 8b 8d da fd d0 d1 9d ab dd 76 2c 90
+    ASCII: :.y..>rY..n..m...............v,..V.'...M....e...9......*B8..W..R
+
+[FOUND] MODE_LSB_0x03: 1383 occurrence(s)
+  @ 0x000001C4
+    Hex: f7 3b 31 05 3c e7 a7 53 21 f6 cf b4 67 f7 3e f7 66 76 c6 bd 2d cc d7 44 e2 50 c3 7a 0e e1 15 a7
+    ASCII: .;1.<..S!...g.>.fv..-..D.P.z......5.x....9../L....../..u..4.....
+  @ 0x000004EB
+    Hex: f2 02 55 12 96 af aa bf 85 4b 0a 90 56 99 40 86 65 6f fd c5 75 5b 6d bd db c2 f3 05 d8 81 ec b5
+    ASCII: ..U......K..V.@.eo..u[m..........9.8bb........&.+. .k..0.f4.....
+  @ 0x00000535
+    Hex: 8f cb 0c 28 c7 e2 21 98 fa fe f5 20 19 80 e2 ef 62 c4 da c1 0a 35 25 7a 54 86 c9 8b 0d 4f 8a ea
+    ASCII: ...(..!.... ....b....5%zT....O...".G..>....0.M0....H......"f....
+  @ 0x00000586
+    Hex: e6 30 c6 37 6c 98 78 81 8d 0c 83 3b 13 e5 bb 11 06 f1 3e 69 bd d0 48 94 e5 9a 42 db a5 5d 98 e0
+    ASCII: .0.7l.x....;......>i..H...B..]...,g......#.........h4."S.mn..K7.
+  @ 0x000006E2
+    Hex: 3c cd 09 fb 8a a2 0f 7a 69 27 0e e0 f0 e6 b3 ee 7a 86 8a 28 d7 7d ab 04 cb 22 86 30 be 59 5c 3e
+    ASCII: <......zi'......z..(.}...".0.Y\>.qbADv..wO.......-....xA.|>.j...
+
+[FOUND] MODE_CW_0x04: 1350 occurrence(s)
+  @ 0x00000007
+    Hex: 98 57 84 20 d4 fd 0b 04 ee 8e af b0 9c 82 3d 59 01 f5 8c 5d ad ea df 26 94 ef 62 63 83 77 8e 5a
+    ASCII: .W. ..........=Y...]...&..bc.w.Z..R3..v0
+  @ 0x000006D9
+    Hex: ad eb 3a 93 f6 2e 5a c2 4f 3c cd 09 fb 8a a2 0f 7a 69 27 0e e0 f0 e6 b3 ee 7a 86 8a 28 d7 7d ab
+    ASCII: ..:...Z.O<......zi'......z..(.}...".0.Y\>.qbADv..wO.......-....x
+  @ 0x000009ED
+    Hex: 74 49 b2 60 b7 41 13 4c 98 1a 55 e8 54 2e c8 79 79 f6 4a 2c e2 52 1a 4e 5b b6 39 4b 4b fd 3d a3
+    ASCII: tI.`.A.L..U.T..yy.J,.R.N[.9KK.=..V....c.e...;........\`-..t..w..
+  @ 0x00000B57
+    Hex: 0f 46 f0 9f 65 e5 c4 32 97 00 8a d3 96 37 0b 21 ce 65 1d 58 d6 34 b0 d3 f6 7a 5c b9 b4 5d 95 1c
+    ASCII: .F..e..2.....7.!.e.X.4...z\..].....X^P......N....(.Um.....{R..S.
+  @ 0x00000B74
+    Hex: 5d 95 1c 04 12 d0 58 5e 50 8e ac 93 bf 8a 90 4e 7f d4 0f 83 28 a4 55 6d f9 9c 2e 89 de 7b 52 bc
+    ASCII: ].....X^P......N....(.Um.....{R..S...6`...tv....Ni_...q6.=..)...
+
+*** NO USB/LSB/SSB STRING REFERENCES FOUND ***
+This suggests these modes may be:
+  1. Represented only as numeric codes
+  2. Completely absent from the firmware
+  3. Obfuscated or compressed
+
+================================================================================
+ANALYZING MODE BYTE SEQUENCES
+================================================================================
+
+Analyzing CW reference regions for mode patterns...
+
+--- Region around 0x0002E0E0 ---
+Bytes: e1 6a c4 87 23 62 da f1 c5 e0 aa c2 4c 6b db cb 43 57 32 84 f3 4a 8c 2f 4c 62 bc aa 65 a5 00 97
+ASCII: .j..#b......Lk..CW2..J./Lb..e...
+
+--- Region around 0x0002EA5E ---
+Bytes: f5 8e 42 04 b4 b8 7f 00 0c 37 fe b8 4f d4 df 84 43 57 b4 b6 aa c9 1b 71 1f 78 9f be e2 4e ff 15
+ASCII: ..B......7..O...CW.....q.x...N..
+
+--- Region around 0x00036F84 ---
+Bytes: d6 a8 49 22 ac e8 94 4a 9c 40 56 1a ef d6 4d 70 43 57 f7 62 7b 2b b9 97 ca b4 8c 1b 1e b9 9c 2d
+ASCII: ..I"...J.@V...MpCW.b{+.........-
+
+================================================================================
+MODE CONTROL FLAG ANALYSIS
+================================================================================
+
+Searching for TX mode restriction patterns...
+  Potential mode mask @ 0x0000054A
+    RX mask (0x1F): offset +63
+    TX mask (0x03): offset +60
+    Hex: 1baae9d4e92266d0cdd8b230d572315d4e91c3d7acf46e22e6eb4a8ce630c637...
+
+================================================================================
+CONFIGURATION BLOCK DETECTION
+================================================================================
+
+Searching for version strings near configuration data...
+
+================================================================================
+MODE REFERENCE PATTERN COMPARISON
+================================================================================
+
+Mode string occurrences:
+  FM: 4
+  AM: 7
+  CW: 5
+  USB: 0 *** NOT FOUND ***
+  LSB: 0 *** NOT FOUND ***
+
+*** CRITICAL FINDING ***
+CW (receive-only mode) IS present in firmware
+USB/LSB (receive-only modes) are NOT present
+
+This suggests:
+  1. USB/LSB modes were never implemented
+  2. OR they use different string representations
+  3. OR they are disabled at compile-time
+
+Analyzing bytes immediately before mode strings...
+
+FM prefix patterns:
+  @ 0x00010EBA: 55 04 1a 3c | FM
+  @ 0x00012DAB: 6b 8f a3 94 | FM
+  @ 0x0002720F: 42 5c 46 b2 | FM
+
+AM prefix patterns:
+  @ 0x00003AFB: 6d 0a 89 26 | AM
+  @ 0x0000D4DB: 9f 00 2e 71 | AM
+  @ 0x0000D598: 29 a7 da 84 | AM
+
+CW prefix patterns:
+  @ 0x0002E0E0: 4c 6b db cb | CW
+  @ 0x0002EA5E: 4f d4 df 84 | CW
+  @ 0x00036F84: ef d6 4d 70 | CW
+
+================================================================================
+ANALYSIS SUMMARY
+================================================================================
+
+FINDINGS:
+  [+] CW mode: PRESENT (5 occurrences)
+  [+] FM mode: PRESENT (4 occurrences)
+  [+] AM mode: PRESENT (7 occurrences)
+  [-] USB mode: NOT FOUND
+  [-] LSB mode: NOT FOUND
+  [-] SSB mode: NOT FOUND
+
+CONCLUSION:
+  USB and LSB transmission modes do not appear to exist in this firmware.
+  The radio supports CW, FM, and AM - but USB/LSB SSB modes are absent.
+  This appears to be a firmware limitation, not a disabled feature.
+
+================================================================================

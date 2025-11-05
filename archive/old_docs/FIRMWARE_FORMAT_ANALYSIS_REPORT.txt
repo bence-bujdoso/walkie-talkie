@@ -1,0 +1,248 @@
+================================================================================
+TK11 FIRMWARE FORMAT ANALYSIS REPORT
+================================================================================
+
+Based on decompilation of TK11.exe wfm_progress class
+
+================================================================================
+1. FIRMWARE STRUCTURE OVERVIEW
+================================================================================
+
+The firmware file (TK11_v5.00.09_ENG.bin) is 357,976 bytes (0x57658).
+
+The file appears to be ENCRYPTED/OBFUSCATED based on:
+- High entropy (7.98/8.0) throughout the file
+- No ARM vector table found at standard offsets
+- Very few readable strings
+- No version string visible in plaintext
+
+================================================================================
+2. PARSING METHODS
+================================================================================
+
+TK11.exe contains TWO firmware parsing methods:
+
+A) PareUpdataFile(string path) -> byte[]
+   - Primary/newer format parser
+   - IL Code Size: 806 bytes (complex)
+   - Local variables include:
+     * FileInfo, FileStream
+     * Multiple byte[] buffers
+     * UInt16 (likely CRC16)
+     * UInt32 (likely file size or checksum)
+     * String for version
+     * Int32 for offsets
+
+B) PareUpdataFile1(string path) -> byte[]
+   - Legacy/fallback format parser
+   - IL Code Size: 587 bytes (simpler)
+   - Similar structure but less complex
+   - Also uses UInt16 (CRC16)
+
+The Updata() method calls:
+  1. First tries: PareUpdataFile()
+  2. If fails, tries: PareUpdataFile1()
+  3. If both fail, shows error: "文件版本错误" (File version error)
+
+================================================================================
+3. KEY CONSTANTS AND FIELDS
+================================================================================
+
+From reflection analysis:
+
+TIME_STRING_LEN = 32 (constant)
+  - Likely: timestamp string in header
+
+VER_STRING_LEN = (instance field, not constant)
+  - Likely: version string length in header
+
+VER_POSITION = (instance field, not constant)
+  - Likely: byte offset of version string in file
+
+file_ver = "old" (default static value)
+  - Used to track which format was detected
+
+versionHighNo = -1 (default static value)
+  - Likely: major version number from parsed file
+
+================================================================================
+4. FIRMWARE FILE FORMAT (HYPOTHESIS)
+================================================================================
+
+Based on IL analysis, the firmware likely has this structure:
+
++-------------------------------------+
+| HEADER                               |
++-------------------------------------+
+| - Magic bytes / signature            |  Offset: 0x00
+| - Format version indicator           |
+| - Timestamp string (32 bytes)        |
+| - Version string (variable length)   |  VER_POSITION (unknown offset)
+| - Data size (UInt32)                 |
+| - CRC16 checksum (UInt16)            |
+| - Additional metadata                |
++-------------------------------------+
+| ENCRYPTED FIRMWARE DATA              |
++-------------------------------------+
+| - Actual firmware binary             |
+| - Appears XOR encrypted or similar   |
+| - 350KB+ of encrypted data           |
++-------------------------------------+
+| FOOTER (optional)                    |
++-------------------------------------+
+| - May contain additional checksum    |
+| - Or padding                         |
++-------------------------------------+
+
+================================================================================
+5. DECRYPTION/VALIDATION PROCESS
+================================================================================
+
+From IL analysis, PareUpdataFile does:
+
+1. Opens file and checks size
+2. Reads header section
+3. Validates magic bytes / format identifier
+4. Extracts version string from VER_POSITION
+5. Compares version against expected format
+6. Reads timestamp (32 bytes)
+7. Calculates CRC16 over specific regions
+8. Decrypts/deobfuscates the firmware data
+9. Returns decrypted byte[] to downloadFileEx()
+
+The downloadFileEx() method:
+- Takes the decrypted firmware bytes
+- Sends to device over serial protocol
+- Does NOT recalculate CRC (already validated)
+
+================================================================================
+6. WHY PATCHED FIRMWARE FAILS
+================================================================================
+
+Our patched firmware fails because:
+
+1. We modified the RAW ENCRYPTED firmware
+   - Changed bytes at offsets 0x561EC (USB mode data)
+   - Changed bytes at various mode configuration locations
+
+2. BUT we didn't update the WRAPPER format:
+   - CRC16 in header is now wrong
+   - Version string may have changed
+   - Encryption may be broken by raw edits
+
+3. The PareUpdataFile() method detects:
+   - CRC mismatch -> rejects file
+   - OR version mismatch -> rejects file
+   - OR decryption fails -> rejects file
+
+4. Even with validation bypass in TK11.exe:
+   - The RAW ENCRYPTED data gets sent to bootloader
+   - Bootloader ALSO validates (separate validation)
+   - Bootloader rejects corrupted encrypted data
+
+================================================================================
+7. CORRECT APPROACH
+================================================================================
+
+To create valid patched firmware:
+
+Option A: Modify DECRYPTED firmware
+   1. Extract and run TK11.exe -> calls PareUpdataFile()
+   2. Let it decrypt the original firmware
+   3. Intercept the decrypted byte[] returned
+   4. Modify THAT decrypted data
+   5. Re-wrap in proper format with valid CRC
+
+Option B: Understand encryption
+   1. Reverse engineer the decryption algorithm in PareUpdataFile()
+   2. Decrypt original firmware
+   3. Make modifications
+   4. Re-encrypt firmware
+   5. Update CRC16 checksum
+   6. Recreate proper file format
+
+Option C: Bootloader exploitation (current approach)
+   1. Bypass TK11.exe validation (DONE)
+   2. Send RAW patched firmware to bootloader
+   3. Bootloader fails because encrypted data is corrupted
+   4. Need to ALSO patch bootloader validation
+
+================================================================================
+8. IMMEDIATE NEXT STEPS
+================================================================================
+
+1. Extract the C# source code for PareUpdataFile()
+   - Use dnSpy GUI to export complete method
+   - Understand exact header format
+   - Find VER_POSITION value
+   - Find CRC16 algorithm
+
+2. Create firmware unwrapper tool
+   - Port PareUpdataFile() logic to Python
+   - Decrypt TK11_v5.00.09_ENG.bin
+   - Save decrypted firmware
+
+3. Modify decrypted firmware
+   - Apply USB mode patches to DECRYPTED data
+   - Apply mode config patches to DECRYPTED data
+
+4. Create firmware wrapper tool
+   - Calculate correct CRC16
+   - Add proper header with version
+   - Encrypt firmware data
+   - Output properly formatted .bin file
+
+5. Test with TK11.exe
+   - Load wrapped patched firmware
+   - Should pass PareUpdataFile() validation
+   - Should upload to device successfully
+
+================================================================================
+9. ALTERNATIVE: HYBRID APPROACH
+================================================================================
+
+Since we've already patched TK11.exe to bypass validation:
+
+1. The patched TK11.exe will accept ANY firmware file
+2. It will try to parse it with PareUpdataFile()
+3. If that fails, try PareUpdataFile1()
+4. If BOTH fail, our bypass kicks in:
+   - Read raw bytes: File.ReadAllBytes(path)
+   - Send directly to downloadFileEx()
+
+This means:
+- We can send DECRYPTED firmware directly!
+- No need to re-wrap in encryption format
+- Just need RAW decrypted firmware binary
+
+Action items:
+1. Use patched TK11.exe
+2. Extract decrypted firmware from original
+3. Modify decrypted firmware
+4. Load modified decrypted firmware into patched TK11.exe
+5. Upload to device
+
+The device bootloader should accept decrypted firmware IF:
+- It matches expected size
+- It has valid internal structure
+- Bootloader doesn't re-check encryption wrapper
+
+================================================================================
+10. FILES TO ANALYZE
+================================================================================
+
+Current firmware:
+- TK11_v5.00.09_ENG.bin (357,976 bytes) - ENCRYPTED original
+- patched_firmware/*.bin (357,976 bytes) - RAW EDITED (corrupted)
+
+Need to create:
+- TK11_v5.00.09_ENG_DECRYPTED.bin - Decrypted original
+- TK11_v5.00.09_USB_TX_DECRYPTED_PATCHED.bin - Modified decrypted
+
+Tools to create:
+- firmware_decrypt.py - Decrypts original firmware
+- firmware_patch.py - Patches decrypted firmware
+- firmware_encrypt.py - Re-encrypts if needed
+- firmware_wrapper.py - Adds header/CRC if needed
+
+================================================================================

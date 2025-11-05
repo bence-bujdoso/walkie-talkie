@@ -1,0 +1,104 @@
+================================================================================
+HASZNÁLD A TK11_NOVER.EXE-T!
+================================================================================
+
+FELFEDEZÉS:
+  Van TK11_nover.exe fájl a könyvtárban!
+  Ez valószínűleg a "no version check" (nincs verzió ellenőrzés) változat!
+
+================================================================================
+TESZTELÉSI ELJÁRÁS
+================================================================================
+
+LÉPÉS 1: INDÍTSD EL A TK11_NOVER.EXE-T
+---------------------------------------
+Dupla kattintás: E:\AI\tk11\TK11_nover.exe
+
+(Ez az eredeti TK11.exe patched változata lehet)
+
+
+LÉPÉS 2: PRÓBÁLD BETÖLTENI A PATCHED FIRMWARE-T
+------------------------------------------------
+1. TK11_nover.exe-ben:
+   File -> Firmware Update (vagy hasonló menü)
+
+2. Válaszd ki:
+   E:\AI\tk11\patched_firmware\TK11_PATCHED_USB_TX_ENABLE_20251029_154257.bin
+
+3. Load / Flash
+
+VÁRHATÓ EREDMÉNY:
+  - Ha TK11_nover.exe tényleg no-version-check:
+    → Betölti a patched firmware-t ✓
+    → Nincs "File version is Wrong" hiba ✓
+
+  - Ha mégis hibát dob:
+    → TK11_nover.exe csak a .dat fájlokra vonatkozik
+    → Firmware flasheléshez más módszer kell
+
+
+LÉPÉS 3: HA SIKERES, FLASH-ELD A RÁDI
+
+ÓBA
+-------------------------------------------------
+Ha a TK11_nover.exe elfogadta a patched firmware-t:
+
+1. Csatlakoztass programozó kábelt
+2. Rádió bekapcsolva
+3. Flash / Upload / Write
+4. Várd meg a befejezést
+5. Rádió újraindul
+
+
+LÉPÉS 4: TESZTELÉS
+-------------------
+1. Töltsd be az EREDETI TK11.dat fájlt
+2. Upload a rádióba
+3. Válaszd ki a K38 USB csatornát
+4. Nyomj PTT-t
+
+SIKERES HA:
+  - Nincs "DISABLE" üzenet!
+  - TX LED világít!
+  - PTT működik!
+
+================================================================================
+HA NEM MŰKÖDIK
+================================================================================
+
+Ha TK11_nover.exe is elutasítja a patched firmware-t:
+
+ALTERNATÍVÁK:
+  [A] Használd az AM módot (TK11_K38_MODE_01_*.dat)
+      - Azonnal működik
+      - Nincs firmware flash
+      - RX: AM (nem USB)
+      - TX: AM
+
+  [B] .NET Decompiler (dnSpy)
+      - Patch-eld a TK11.exe-t közvetlenül
+      - Távolítsd el a version check-et
+      - Haladó felhasználóknak
+
+  [C] Serial Direct Flash
+      - Bypass TK11.exe-t teljesen
+      - UART/JTAG flashelés
+      - Szakértőknek
+
+================================================================================
+DOKUMENTÁCIÓ
+================================================================================
+
+Ha TK11_nover.exe működik:
+  → Folytatás a HYBRID_MODE_GUIDE.md szerint
+
+Ha nem működik:
+  → Lásd ALTERNATIVE_SOLUTION.txt
+
+================================================================================
+
+PRÓBÁLD KI A TK11_NOVER.EXE-T MOST!
+
+Jelentsd vissza az eredményt!
+
+================================================================================

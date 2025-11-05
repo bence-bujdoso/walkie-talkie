@@ -1,0 +1,19 @@
+TK11 FIRMWARE - POTENTIAL MODE CONTROL PATTERNS
+================================================================================
+
+
+Pattern 1 @ 0x00002F0E:
+Hex: b62c2f46b62875689bc6b631c76f5e9b75fd7510
+ASCII: .,/F.(uh...1.o^.u.u.
+
+Pattern 2 @ 0x00024359:
+Hex: d3bfe60378e9951c3d0c7845e6d8d3463a83d37c
+ASCII: ....x...=.xE...F:..|
+
+Pattern 3 @ 0x0004E98D:
+Hex: eaf70b8b2ee8fd77ea54594ffd4588a5fdbf596b
+ASCII: .......w.TYO.E....Yk
+
+Pattern 4 @ 0x00050577:
+Hex: 0046f0d7366ceff6f02c004382cdb46836dd82b8
+ASCII: .F..6l...,.C...h6...

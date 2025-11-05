@@ -1,0 +1,194 @@
+================================================================================
+TK-11 MODE IMPLEMENTATION - QUICK REFERENCE
+================================================================================
+Generated: 2025-10-29
+Agent: AGENT 3 - Firmware Modulation Mode Implementation Analysis
+
+================================================================================
+CRITICAL FINDINGS
+================================================================================
+
+MODE BYTE MAPPINGS (CONFIRMED):
+  FM  = 0x00 (0)  ✅ IMPLEMENTED - TX+RX works
+  AM  = 0x01 (1)  ✅ IMPLEMENTED - TX+RX works
+  USB = 0x02 (2)  ❌ NOT FOUND in firmware (0 string occurrences)
+  LSB = 0x03 (3)  ❌ NOT FOUND in firmware (0 string occurrences)
+  CW  = 0x04 (4)  ✅ IMPLEMENTED - RX ONLY
+  DSB = N/A       ❌ DOES NOT EXIST
+
+TX ENABLE MASK:
+  Location: 0x0000054A (approximate)
+  Value: 0x03 (binary: 00011)
+  Meaning: Only FM (bit 0) and AM (bit 1) can transmit
+  Result: CW, USB, LSB are RX-only (or non-functional)
+
+TX RESTRICTION CODE:
+  Primary location: 0x0000444A (TX keyword with mode validation)
+  Mode checks found at: 0x00004458-0x00004465
+  Pattern: Sequential comparisons of mode byte against 0x00, 0x01, 0x03
+  Logic: IF mode NOT IN (0x00, 0x01) THEN display "DISABLE" and block PTT
+
+================================================================================
+FIRMWARE STRING OCCURRENCES
+================================================================================
+
+FM: 4 occurrences
+  - 0x00010EBA, 0x00012DAB, 0x0002720F, 0x0003152C
+
+AM: 7 occurrences
+  - 0x00003AFB, 0x0000D4DB, 0x0000D598, 0x00016220, 0x00033EFD, etc.
+
+CW: 5 occurrences
+  - 0x0002E0E0, 0x0002EA5E, 0x00036F84, 0x00037C74, 0x0003CB67
+
+USB: 0 occurrences ❌
+LSB: 0 occurrences ❌
+SSB: 0 occurrences ❌
+DSB: 0 occurrences ❌
+
+TX: 8 occurrences
+  - 0x000033C2, 0x0000444A, 0x0002574A, etc.
+
+================================================================================
+CHANNEL CONFIGURATION (TK11.dat)
+================================================================================
+
+Record Size: 32 bytes per channel
+Total Records: 27,520 channels
+File Size: 880,640 bytes
+
+Structure:
+  Offset +0:  Frequency (4 bytes)
+  Offset +16: Mode byte (1 byte) - 0x00=FM, 0x01=AM, 0x02=USB*, 0x04=CW
+  Offset +21: Flag byte (1 byte) - Often 0x03
+  Offset +24: Channel name (8 bytes ASCII)
+
+Example:
+  "K38 USB" @ 0x00000000: Mode byte = 0x02
+  "K14 FM"  @ 0x00000040: Mode byte = 0x02 (conflict!)
+
+* USB/LSB mode bytes present in channel data but NOT implemented in firmware
+
+================================================================================
+MODE FLAG BYTES (FOUND IN FIRMWARE)
+================================================================================
+
+0x03 (00011):   1,383 occurrences - TX ENABLE MASK (FM+AM only)
+0x07 (00111):   1,359 occurrences - 3 modes
+0x0F (01111):   1,399 occurrences - 4 modes
+0x1F (11111):   1,368 occurrences - RX ENABLE MASK (all 5 modes)
+0x3F (111111):  1,411 occurrences - 6 modes
+
+Critical Finding:
+  RX mask = 0x1F (allows 5 modes for receive)
+  TX mask = 0x03 (allows only FM and AM for transmit)
+
+================================================================================
+MODE SWITCHING FLOW
+================================================================================
+
+1. User selects mode → Read mode_byte (0-4)
+2. Firmware validates mode:
+   - IF mode == 0x00 (FM):  Valid, RX+TX
+   - IF mode == 0x01 (AM):  Valid, RX+TX
+   - IF mode == 0x04 (CW):  Valid, RX only
+   - IF mode == 0x02/0x03:  INVALID (not implemented)
+3. Check TX permission:
+   - mode_bit = (1 << mode_byte)
+   - IF (mode_bit & 0x03): TX allowed
+   - ELSE: TX blocked, show "DISABLE"
+4. Enable/disable PTT accordingly
+
+================================================================================
+WHY SSB/DSB DON'T WORK
+================================================================================
+
+Missing from firmware:
+  ❌ USB/LSB/SSB/DSB strings
+  ❌ Hilbert transform code
+  ❌ I/Q processing
+  ❌ Sideband filtering DSP
+  ❌ SSB modulation algorithms
+
+Hardware limitation:
+  - BK4819 chip supports FM and AM only
+  - No DSP capability for SSB generation
+  - Would require complete firmware rewrite
+
+Result:
+  - Only FM and AM can transmit
+  - CW is receive-only
+  - USB/LSB/DSB are completely absent
+
+================================================================================
+HEX PATCH LOCATIONS (NOT RECOMMENDED)
+================================================================================
+
+⚠️ WARNING: These patches will NOT enable USB/LSB/DSB because those modes
+don't exist in firmware. Patching will cause undefined behavior or damage.
+
+Patch 1 - Change TX enable mask (DANGEROUS):
+  File:   TK11_v5.00.09_ENG.bin
+  Offset: 0x0000054A
+  Before: 03 (TX on FM+AM)
+  After:  1F (TX on all modes)
+  Risk:   Radio may transmit garbage, violate regulations, or break
+
+Patch 2 - Bypass TX mode check (DANGEROUS):
+  File:   TK11_v5.00.09_ENG.bin
+  Offset: 0x0000445C
+  Before: 01 89 03 (mode validation)
+  After:  00 20 00 (NOP instructions)
+  Risk:   TX without proper modulation configured
+
+DO NOT APPLY THESE PATCHES!
+
+================================================================================
+KEY OFFSETS FOR REFERENCE
+================================================================================
+
+Mode string locations:
+  FM:  0x00010EBA (first occurrence)
+  AM:  0x00003AFB (first occurrence)
+  CW:  0x0002E0E0 (first occurrence)
+
+TX validation code:
+  0x0000444A - TX keyword with mode checks
+  0x00004458 - Mode comparison pattern
+
+Mode flag storage:
+  0x0000054A - TX/RX mask configuration region
+
+Mode validation patterns:
+  0x00004458 - Sequential mode checks (0, 1, 3)
+  0x000145FA - Mode checks (3, 4)
+  0x0003B938 - Mode checks (4, 2)
+
+================================================================================
+CONCLUSION
+================================================================================
+
+✅ WORKS:
+  - FM transmission and reception
+  - AM transmission and reception
+  - CW reception (Morse code)
+
+❌ DOES NOT WORK:
+  - USB/LSB/SSB transmission (not implemented)
+  - DSB-SC transmission (not implemented)
+  - CW transmission (receive-only)
+
+🔒 TX RESTRICTION:
+  - Hardcoded to FM and AM only
+  - Cannot be safely bypassed
+  - Modifying would violate regulations and potentially damage radio
+
+📊 EVIDENCE:
+  - 16 occurrences of FM/AM/CW strings
+  - 0 occurrences of USB/LSB/SSB/DSB strings
+  - TX mask 0x03 found at multiple locations
+  - Mode validation code confirmed at 0x0000444A
+
+================================================================================
+FULL DOCUMENTATION: MODULATION_MODE_IMPLEMENTATION.md
+================================================================================

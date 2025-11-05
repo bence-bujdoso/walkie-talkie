@@ -1,0 +1,103 @@
+================================================================================
+ALTERNATÍV MEGOLDÁS - "File version is Wrong" Hiba Kikerülése
+================================================================================
+
+PROBLÉMA:
+  TK11.exe elutasítja a patched firmware-t: "File version is Wrong"
+
+OKID:
+  - TK11.exe .NET alkalmazás (C#)
+  - Checksum/verzió ellenőrzést végez
+  - Nem egyszerű assembly patch
+
+================================================================================
+3 ALTERNATÍV MEGOLDÁS
+================================================================================
+
+[OPCIÓ A] AM MÓD HASZNÁLATA (AZONNAL MŰKÖDIK!)
+------------------------------------------------
+Nincs szükség firmware flash-re!
+
+Fájl: TK11_K38_MODE_01_20251029_150652.dat
+
+1. Töltsd be TK11.exe-be (eredeti exe-vel)
+2. Upload a rádióba
+3. K38 csatorna → AM mód
+4. PTT működik!
+
+EREDMÉNY:
+  - RX: AM demoduláció (nem hallod tisztán az SSB-t)
+  - TX: AM moduláció (SSB állomások hallanak)
+
+ELŐNY: Azonnal működik, nincs kockázat
+HÁTRÁNY: RX nem USB (nem hallod az SSB adókat)
+
+[OPCIÓ B] EREDETI K38 HASZNÁLATA (CSAK VÉTELRE)
+------------------------------------------------
+Az eredeti TK11.dat már tartalmaz USB csatornát!
+
+K38 USB csatorna (mode 0x04):
+  - RX: USB demoduláció működik! ✓
+  - TX: "DISABLE" (blokkolva)
+
+HASZNÁLAT:
+  Csak vételre használd:
+  - Hallgasd az SSB állomásokat K38-on
+  - Válaszolj másik csatornán (AM vagy FM)
+
+ELŐNY: USB vételed van, nincs firmware módosítás
+HÁTRÁNY: Nem tudsz az USB csatornán válaszolni
+
+[OPCIÓ C] .NET DECOMPILER + IL EDITING (HALADÓKNAK)
+----------------------------------------------------
+TK11.exe módosítása .NET dekompilerrel
+
+LÉPÉSEK:
+1. Download dnSpy vagy ILSpy:
+   https://github.com/dnSpy/dnSpy/releases
+
+2. Nyisd meg TK11.exe-t dnSpy-ban
+
+3. Keresd meg a "File version is Wrong" stringet
+
+4. Találd meg a függvényt, ami ezt dobja
+
+5. Módosítsd a version check logikát:
+   - Kommenteld ki a checksum ellenőrzést
+   - Vagy return true mindig
+
+6. Mentsd el (File -> Save Module)
+
+7. Próbáld újra betölteni a patched firmware-t
+
+ELŐNY: Teljes kontroll a TK11.exe felett
+HÁTRÁNY: Bonyolult, .NET ismeretet igényel
+
+[OPCIÓ D] ALTERNATÍV FLASH MÓDSZER (SZAKÉRTŐKNEK)
+--------------------------------------------------
+Bypass TK11.exe-t teljesen
+
+LEHETSÉGES MÓDSZEREK:
+1. UART/Serial Direct Flash:
+   - Csatlakoztass közvetlenül a rádió UART-jához
+   - Használj flasher tool-t (pl. stm32flash)
+   - Írj közvetlenül a flash memóriába
+
+2. JTAG/SWD Interface:
+   - Ha a rádiónak van debug port-ja
+   - OpenOCD vagy ST-Link használata
+   - Direct memory access
+
+3. Bootloader Mode:
+   - Találd meg a bootloader aktiválás módját
+   - Speciális gombkombináció bootoláskor?
+   - DFU (Device Firmware Update) mód
+
+ELŐNY: Teljes kontroll, nincs TK11.exe korlát
+HÁTRÁNY: Hardver hozzáférés kell, brickelés veszélye
+
+================================================================================
+AJÁNLOTT SORREN
+
+D
+

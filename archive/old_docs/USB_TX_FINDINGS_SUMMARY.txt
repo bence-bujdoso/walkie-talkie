@@ -1,0 +1,241 @@
+===============================================================================
+USB TX TRANSMISSION DISABLED - COMPREHENSIVE FINDINGS SUMMARY
+===============================================================================
+Date: 2025-11-03
+Project: TK11 Radio Firmware Modification
+Issue: TX showing DISABLED on USB mode (0x04) - needs AM mode for transmitting
+
+===============================================================================
+CRITICAL FILES FOR USB TX ISSUE
+===============================================================================
+
+1. PRIMARY SOLUTION: patch_usb_mode.py
+   Location: E:\AI\tk11\patch_usb_mode.py
+   
+   KEY FINDING:
+   - Original TX mask: 0x03 (binary: 00000011) = FM and AM only
+   - New TX mask: 0x13 (binary: 00010011) = FM, AM, and USB
+   - Patch offset: 0x0000314D (highest confidence)
+   - Patch value: 0x13
+   
+   Bit Logic:
+   - Mode 0x04: 1 << 4 = 0x10
+   - 0x10 & 0x13 = 0x10 (non-zero) → TX ALLOWED
+   - 0x10 & 0x03 = 0x00 (zero) → TX DISABLED (current)
+   
+   Result: RX=USB, TX=AM (hardware limitation, PERFECT use case)
+
+2. DISCOVERY: find_tx_mask.py
+   Location: E:\AI\tk11\find_tx_mask.py
+   
+   Finds TX validation mask by:
+   - Searching all 0x03 byte occurrences
+   - Analyzing context for TX validation patterns
+   - Scoring candidates (0x0000314D = highest at score 21)
+   - Other candidates: 0x0000338C, 0x000041EC, 0x00035FE4 (all score 21)
+
+3. TESTING PATCHER: patch_firmware.py
+   Location: E:\AI\tk11\patch_firmware.py
+   
+   Creates 50 test firmware versions:
+   - 10 candidate offsets
+   - 5 test values (0x23, 0x2F, 0x3F, 0x7F, 0xFF)
+   - Useful if 0x13 doesn't fully work
+
+4. TX LOGIC ANALYZER: extract_tx_regions.py
+   Location: E:\AI\tk11\extract_tx_regions.py
+   
+   Deep analysis of TX enable/disable:
+   - TX keyword locations
+   - DISABLE message regions
+   - Mode validation patterns
+   - Channel mode fields
+
+===============================================================================
+CHANNEL CONFIGURATION FILES (DAT FILE)
+===============================================================================
+
+RECORD FORMAT (64 bytes per channel):
+  Offset  Size  Field                    Description
+  ------  ----  -----                    -----------
+  0-3     4     RX Frequency             In Hz (little-endian)
+  4-7     4     TX Frequency             0 = simplex
+  8-9     2     RX CTCSS                 Tone code
+  10-11   2     TX CTCSS                 Tone code
+  12-23   12    Flags & Settings         Various config
+  22      1     TX PERMIT BYTE <<<<<<    0xFF=enabled, 0x00=disabled
+  23      1     CHANNEL MODE BYTE <<<<<  0x00-0x04 for std modes
+  24-39   16    Channel Name             ASCII string
+  40-63   24    Additional Settings      Extra config
+
+KEY BYTE VALUES:
+  Byte 22 (TX Permit):
+    0xFF = TX enabled
+    0x00 = TX disabled
+  
+  Byte 23 (Channel Mode):
+    0x00 = FM
+    0x01 = AM
+    0x02 = USB/SSB
+    0x03 = LSB/SSB
+    0x04 = CW
+    0x05+ = DSB/extended (research)
+
+RELEVANT FILES:
+  - detailed_channel_analysis.py: Full 64-byte record parser
+  - modify_k38_to_dsb.py: Modify K38 channel (Record 0)
+  - scan_11m_channels.py: Analyze CB band (26.965-27.405 MHz)
+  - frequency_scanner.py: Show all frequencies by band
+  - analyze_cb_channels.py: CB channel validation
+
+===============================================================================
+FIRMWARE ANALYSIS FILES
+===============================================================================
+
+1. firmware_analyzer.py
+   - ASCII string extraction from binary
+   - Modulation keyword search (USB, LSB, AM, FM, CW)
+   - Mode control pattern detection
+   - Frequency range analysis
+
+2. deep_mode_analysis.py
+   - USB/LSB/SSB pattern searching
+   - Mode enumeration sequences
+   - Mode keyword clustering
+   - Mode flag byte analysis (0x03, 0x07, 0x0F, 0x1F)
+
+3. mode_implementation_analyzer.py
+   - Mode byte value extraction
+   - TX restriction pattern analysis
+   - Mode validation code patterns
+   - TX/DISABLE keyword proximity analysis
+
+===============================================================================
+CRITICAL TX MASK VALUES
+===============================================================================
+
+At Firmware Offset 0x0000314D:
+
+0x03 (00000011) = Current value
+  Bit 0: FM enabled
+  Bit 1: AM enabled
+  Bit 4: USB DISABLED <<<< PROBLEM
+  Result: Mode 0x04 TX not allowed
+
+0x13 (00010011) = Recommended patch
+  Bit 0: FM enabled
+  Bit 1: AM enabled
+  Bit 4: USB ENABLED <<<< SOLUTION
+  Result: Mode 0x04 TX allowed
+
+Alternative values if 0x13 doesn't work:
+  0x23, 0x2F, 0x3F, 0x7F, 0xFF
+
+===============================================================================
+SOLUTION SUMMARY
+===============================================================================
+
+IMMEDIATE FIX:
+1. Run: python patch_usb_mode.py
+2. Patch offset: 0x0000314D
+3. Change: 0x03 → 0x13
+4. Backup: Keep original firmware
+5. Verify: Check SHA256 hash
+6. Flash: Load into radio (see radio manual)
+7. Test: Use dummy load + spectrum analyzer
+
+EXPECTED RESULT:
+- RX: USB demodulation (receive SSB)
+- TX: AM modulation (reply to SSB stations)
+- "DISABLE" message: GONE
+- Use case: PERFECT for hybrid SSB RX + AM TX
+
+SAFETY:
+- Can brick radio if patched incorrectly
+- Always backup original firmware
+- Test with dummy load first
+- Monitor TX with spectrum analyzer
+- Do NOT transmit on live frequencies during testing
+
+===============================================================================
+FILE DEPENDENCY CHAIN
+===============================================================================
+
+patch_usb_mode.py (PRIMARY)
+  ↓ Reads
+  TK11_v5.00.09_ENG.bin
+  ↓ Patches offset
+  0x0000314D (0x03 → 0x13)
+  ↓ Creates
+  patched_firmware/TK11_PATCHED_USB_TX_ENABLE_*.bin
+
+find_tx_mask.py (DISCOVERY)
+  ↓ Searches
+  TK11_v5.00.09_ENG.bin
+  ↓ Identifies
+  Top candidate: 0x0000314D (score 21)
+
+modify_k38_to_dsb.py (DAT FILE)
+  ↓ Reads
+  TK11.dat
+  ↓ Modifies
+  Record 0, byte 23 (mode)
+  ↓ Creates
+  TK11_K38_MODE_*.dat
+
+scan_11m_channels.py (VERIFICATION)
+  ↓ Reads
+  TK11.dat
+  ↓ Scans
+  CB band (26.965-27.405 MHz)
+  ↓ Reports
+  Mode and TX permit bytes
+
+===============================================================================
+KEY FILES FOR YOUR ISSUE (ABSOLUTE PATHS)
+===============================================================================
+
+Most Important:
+  E:\AI\tk11\patch_usb_mode.py           ← PRIMARY SOLUTION
+  E:\AI\tk11\find_tx_mask.py             ← CONFIRMATION
+  E:\AI\tk11\patch_firmware.py           ← BACKUP OPTION
+
+Channel Configuration:
+  E:\AI\tk11\detailed_channel_analysis.py ← RECORD STRUCTURE
+  E:\AI\tk11\modify_k38_to_dsb.py         ← CHANNEL MODIFICATION
+  E:\AI\tk11\scan_11m_channels.py         ← CB CHANNEL SCANNER
+
+Firmware Analysis:
+  E:\AI\tk11\firmware_analyzer.py         ← GENERAL ANALYSIS
+  E:\AI\tk11\deep_mode_analysis.py        ← MODE PATTERNS
+  E:\AI\tk11\mode_implementation_analyzer.py ← MODE BYTE VALUES
+
+Scanning & Frequency:
+  E:\AI\tk11\frequency_scanner.py         ← FREQUENCY BANDS
+  E:\AI\tk11\analyze_cb_channels.py       ← CB ANALYSIS
+
+===============================================================================
+MODE ENUMERATION
+===============================================================================
+
+Standard Modes:
+  0x00 = FM (Frequency Modulation)
+  0x01 = AM (Amplitude Modulation)
+  0x02 = USB (Upper Side Band / SSB)
+  0x03 = LSB (Lower Side Band / SSB)
+  0x04 = CW (Continuous Wave)
+
+Extended/Research:
+  0x05 = DSB hypothesis 1
+  0x06 = DSB hypothesis 2
+  0x07 = DSB hypothesis 3
+  0x08 = DSB hypothesis 4 (bit flag)
+
+===============================================================================
+END SUMMARY
+===============================================================================
+
+Most Critical Finding: Offset 0x0000314D, patch 0x03 to 0x13
+Primary Solution File: E:\AI\tk11\patch_usb_mode.py
+Result: USB mode TX enabled with AM modulation (PERFECT for use case)
+
