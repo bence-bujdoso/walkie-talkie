@@ -1,0 +1,27 @@
+# dnSpy decompiler tools (large)
+dnSpy/
+dnSpy32/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Test directories
+test_firmware/
+patched_firmware/
+patched_tk11_exe/
+
+# Binary files
+*.exe
+*.bin
+*.dll
+*.dat
+
+# Screenshots
+*.png
+
+# Temporary files
+nul
+
+# VS Code
+.claude/
