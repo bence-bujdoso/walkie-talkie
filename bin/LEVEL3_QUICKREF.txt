@@ -1,0 +1,67 @@
+========================================
+LEVEL 3 BYPASS - QUICK REFERENCE
+========================================
+
+PROBLEM: All 8 firmware variants show "Write Fail"
+SOLUTION: Patch downloadFileEx() method
+
+========================================
+WHERE TO PATCH
+========================================
+
+Method: K7.wfm_progress.downloadFileEx(byte[] allBuffer)
+Location: Around line 20-40
+Search for: "if (!flag2)"
+
+========================================
+ORIGINAL CODE (DELETE THIS)
+========================================
+
+    if (!flag2)
+    {
+        return false;
+    }
+
+========================================
+NEW CODE (PASTE THIS)
+========================================
+
+    if (!flag2)
+    {
+        flag2 = true;
+        System.Windows.Forms.MessageBox.Show("Bootloader bypass aktív!", "Level 3");
+    }
+
+========================================
+ALTERNATIVE (SIMPLER)
+========================================
+
+    if (!flag2)
+    {
+        // return false;
+    }
+
+========================================
+STEPS
+========================================
+
+1. Open TK11_PATCHED.exe in dnSpy
+2. Navigate to: K7 -> wfm_progress -> downloadFileEx()
+3. Right-click -> "Edit Method (C#)..."
+4. Press CTRL+F, search: "if (!flag2)"
+5. Replace code as shown above
+6. Click "Compile"
+7. File -> Save Module -> TK11_PATCHED_LEVEL3.exe
+8. Test with any firmware variant
+
+========================================
+EXPECTED RESULT
+========================================
+
+✅ Popup shows: "Bootloader bypass aktív!"
+✅ Flash progress bar moves
+✅ Flash reaches 100%
+✅ Radio reboots
+✅ USB TX works!
+
+========================================
