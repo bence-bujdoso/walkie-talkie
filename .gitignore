@@ -14,7 +14,6 @@ patched_tk11_exe/
 # Binary files
 *.bin
 *.dll
-*.dat
 
 # Screenshots
 *.png
