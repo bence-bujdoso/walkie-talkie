@@ -12,7 +12,7 @@ import sys
 import os
 
 TX_MASK_OFFSET = 0x314D
-EXPECTED_PATCHED = 0x13
+EXPECTED_PATCHED = 0x17  # 0x01 (FM) + 0x02 (AIR) + 0x04 (USB) + 0x10 (WFM) = 0x17
 EXPECTED_ORIGINAL = 0x03
 
 def verify_patch(file_path):

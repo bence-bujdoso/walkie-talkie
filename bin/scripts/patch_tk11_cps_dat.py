@@ -20,7 +20,7 @@ import struct
 # Configuration
 TX_MASK_OFFSET = 0x314D  # Offset of TX mask in memory
 ORIGINAL_VALUE = 0x03    # Expected original value (USB TX disabled)
-NEW_VALUE = 0x13         # New value (USB TX enabled)
+NEW_VALUE = 0x17         # New value (USB TX enabled) - 0x01 + 0x02 + 0x04 + 0x10
 
 # ANSI color codes for pretty output
 class Colors:
@@ -245,7 +245,7 @@ def main():
         print("What this does:")
         print("  - Reads your TK11 CPS backup (.dat file)")
         print("  - Modifies the TX mask at offset 0x314D")
-        print("  - Changes 0x03 → 0x13 (enables USB TX)")
+        print("  - Changes 0x03 → 0x17 (enables USB TX)")
         print("  - Saves as <filename>_PATCHED.dat")
         print()
         print("How to get the .dat file:")

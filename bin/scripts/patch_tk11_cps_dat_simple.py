@@ -21,7 +21,7 @@ from pathlib import Path
 
 # Configuration
 TX_MASK_OFFSET = 0x314D  # Offset of TX mask in memory
-NEW_VALUE = 0x13         # New value (USB TX enabled)
+NEW_VALUE = 0x17         # New value (USB TX enabled) - 0x01 + 0x02 + 0x04 + 0x10
 
 def patch_dat_file(input_file, output_file=None):
     """Patch the .dat file"""
