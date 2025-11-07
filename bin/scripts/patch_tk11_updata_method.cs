@@ -1,27 +1,15 @@
-/*
- * TK11.exe Patch Instructions
- *
- * This file contains the C# code to patch TK11.exe using dnSpy
- * to bypass firmware validation.
- *
- * INSTRUCTIONS:
- * 1. Backup original TK11.exe first!
- * 2. Open TK11.exe in dnSpy
- * 3. Navigate to: TK11 → K7 → wfm_progress
- * 4. Find method: Updata()
- * 5. Right-click → Edit Method (C#)...
- * 6. Replace ENTIRE method with code below
- * 7. Click "Compile"
- * 8. File → Save Module
- * 9. Save as TK11_PATCHED.exe
- */
-
-// =============================================================================
-// LEVEL 2 BYPASS - Direct Firmware Loading (RECOMMENDED)
-// =============================================================================
-// This completely bypasses firmware validation and loads any file directly.
-// Use this version for maximum compatibility with patched firmware.
-// =============================================================================
+// TK11.exe Patcher - Updata() Method Replacement
+// ================================================
+//
+// INSTRUCTIONS:
+// 1. Open TK11.exe in dnSpy
+// 2. Navigate to: K7 -> wfm_progress -> Updata()
+// 3. Right-click on Updata() -> "Edit Method (C#)..."
+// 4. DELETE ALL CODE and replace with the code below
+// 5. Click "Compile"
+// 6. File -> Save Module -> Save as TK11_PATCHED.exe
+//
+// ================================================
 
 public void Updata()
 {
@@ -30,51 +18,7 @@ public void Updata()
     {
         byte[] array = null;
 
-        // ⭐ BYPASS: Load firmware directly without validation
-        try
-        {
-            array = System.IO.File.ReadAllBytes(path);
-            wfm_progress.file_ver = "direct";
-            MessageBox.Show("Firmware loaded (validation bypassed)");
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show("Error reading file: " + ex.Message);
-            array = null;
-        }
-
-        if (array != null)
-        {
-            if (this.downloadFileEx(array))
-            {
-                MessageBox.Show(this.GetLang("write_success"));
-            }
-            else
-            {
-                MessageBox.Show(this.GetLang("write_fail"));
-            }
-        }
-        else
-        {
-            MessageBox.Show("Could not read firmware file");
-        }
-    }
-}
-
-// =============================================================================
-// ALTERNATIVE: LEVEL 1 BYPASS - Conservative (Try Original First)
-// =============================================================================
-// Uncomment below if you prefer a more conservative approach that tries
-// the original validation first, then falls back to direct loading.
-// =============================================================================
-
-/*
-public void Updata()
-{
-    string path = Iparse.getchart("path", "program");
-    if (protocol_struct.GetUpdataReady())
-    {
-        byte[] array = null;
+        // ⭐ BYPASS LEVEL 1: Try original validation first (conservative)
         try
         {
             array = this.PareUpdataFile(path);
@@ -85,6 +29,8 @@ public void Updata()
             array = null;
             wfm_progress.file_ver = "old";
         }
+
+        // Try legacy format if new format failed
         if (array == null)
         {
             try
@@ -96,69 +42,50 @@ public void Updata()
                 array = null;
             }
         }
-        // ⭐ BYPASS: If validation failed, load directly
+
+        // ⭐ BYPASS LEVEL 2: If validation failed, load directly
         if (array == null)
         {
             try
             {
                 array = System.IO.File.ReadAllBytes(path);
                 wfm_progress.file_ver = "bypass";
+                System.Windows.Forms.MessageBox.Show(
+                    "Firmware loaded (validation bypassed)\n" +
+                    "Size: " + array.Length + " bytes\n" +
+                    "Ready to flash!",
+                    "TK11 Patched - Bypass Mode",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Information
+                );
             }
             catch (Exception ex2)
             {
+                System.Windows.Forms.MessageBox.Show(
+                    "Error reading file: " + ex2.Message,
+                    "TK11 Patched - Error",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error
+                );
                 array = null;
             }
         }
+
+        // Flash the firmware
         if (array != null)
         {
             if (this.downloadFileEx(array))
             {
-                MessageBox.Show(this.GetLang("write_success"));
+                System.Windows.Forms.MessageBox.Show(this.GetLang("write_success"));
             }
             else
             {
-                MessageBox.Show(this.GetLang("write_fail"));
+                System.Windows.Forms.MessageBox.Show(this.GetLang("write_fail"));
             }
         }
         else
         {
-            MessageBox.Show(this.GetLang("文件版本错误"));
+            System.Windows.Forms.MessageBox.Show("Could not read firmware file");
         }
     }
 }
-*/
-
-// =============================================================================
-// VERIFICATION
-// =============================================================================
-// After patching:
-// 1. TK11_PATCHED.exe should be ~373 KB (original is ~382 KB)
-// 2. Open TK11_PATCHED.exe
-// 3. Try to load: patched_firmware_final\TK11_PATCHED_v3_minimal.bin
-// 4. You should see "Firmware loaded (validation bypassed)" message
-// 5. NO "File version is Wrong" (文件版本错误) error!
-//
-// If you still get the error, make sure you're running TK11_PATCHED.exe
-// and not the original TK11.exe!
-// =============================================================================
-
-// =============================================================================
-// TROUBLESHOOTING
-// =============================================================================
-//
-// "Compilation failed"
-//   → Check syntax: all { } match, all ; present
-//   → Try copying code again carefully
-//   → Use LEVEL 1 bypass (simpler code)
-//
-// "Still getting File version is Wrong"
-//   → Make sure you saved the module in dnSpy
-//   → Make sure you're running TK11_PATCHED.exe
-//   → Check file size: patched should be ~373 KB
-//
-// "Write fail immediately"
-//   → This is a different issue (bootloader rejecting firmware format)
-//   → Try different firmware variants (v1, v2, v3, v4)
-//   → Consider LEVEL 3 bypass (see COMPLETE_TK11_BYPASS.md)
-//
-// =============================================================================

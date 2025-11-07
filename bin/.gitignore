@@ -1,0 +1,23 @@
+# Ignore original proprietary files (must be downloaded by user)
+original/TK11.exe
+original/*.bin
+original/*.BIN
+
+# Ignore generated patched firmware files (can be regenerated)
+patched_firmware/*.bin
+patched_firmware/*.BIN
+
+# Ignore generated patched software files (must be created by user)
+patched_software/*.exe
+patched_software/*.EXE
+
+# Keep the folder structure
+!original/.gitkeep
+!patched_firmware/.gitkeep
+!patched_software/.gitkeep
+
+# Ignore temporary files
+*.tmp
+*.log
+__pycache__/
+*.pyc

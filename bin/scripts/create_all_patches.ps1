@@ -1,81 +1,112 @@
-# TK11 Firmware Patcher - PowerShell Script
-# Automatically creates all 8 patched firmware variants
+# TK11 Complete Patcher - Master Script (PowerShell)
+# ====================================================
 
-Write-Host "================================================================" -ForegroundColor Cyan
-Write-Host "  TK11 USB TX Unlock - Firmware Patcher" -ForegroundColor Cyan
-Write-Host "================================================================" -ForegroundColor Cyan
+$ErrorActionPreference = "Stop"
+
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$BinDir = Split-Path -Parent $ScriptDir
+$OriginalDir = Join-Path $BinDir "original"
+$FirmwareDir = Join-Path $BinDir "patched_firmware"
+$SoftwareDir = Join-Path $BinDir "patched_software"
+
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "TK11 Complete Patcher" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Check for original firmware
-$originalFirmware = "bin\original\TK11_v5.00.09_ENG.bin"
-$originalExe = "bin\original\TK11.exe"
+# Check for original files
+Write-Host "[*] Checking for original files..." -ForegroundColor Yellow
+Write-Host ""
 
-if (-Not (Test-Path $originalFirmware)) {
-    Write-Host "[ERROR] Original firmware not found!" -ForegroundColor Red
-    Write-Host "Expected: $originalFirmware" -ForegroundColor Red
+$FirmwareFile = Get-ChildItem -Path $OriginalDir -Filter "TK11*.bin" -File -ErrorAction SilentlyContinue | Select-Object -First 1
+$TK11Exe = Get-ChildItem -Path $OriginalDir -Filter "TK11.exe" -File -ErrorAction SilentlyContinue | Select-Object -First 1
+
+if (-not $FirmwareFile) {
+    Write-Host "[!] ERROR: No firmware file found in $OriginalDir" -ForegroundColor Red
     Write-Host ""
-    Write-Host "Please download:" -ForegroundColor Yellow
-    Write-Host "  https://itistesla.com/ai/TK11_v5.00.09_ENG.bin" -ForegroundColor Yellow
-    Write-Host "  https://itistesla.com/ai/TK11.exe" -ForegroundColor Yellow
+    Write-Host "Please download and place the firmware file:" -ForegroundColor Yellow
+    Write-Host "  URL: https://itistesla.com/ai/TK11_v5.00.09_ENG.bin"
+    Write-Host "  Location: $OriginalDir\"
     Write-Host ""
-    Write-Host "And place them in: bin\original\" -ForegroundColor Yellow
     exit 1
 }
 
-Write-Host "[OK] Found original firmware: $originalFirmware" -ForegroundColor Green
-
-if (-Not (Test-Path $originalExe)) {
-    Write-Host "[WARNING] TK11.exe not found in bin\original\" -ForegroundColor Yellow
-    Write-Host "Expected: $originalExe" -ForegroundColor Yellow
-}
-
-# Copy firmware to root for processing
-Write-Host "[*] Copying firmware to workspace..." -ForegroundColor Cyan
-Copy-Item $originalFirmware "TK11_v5.00.09_ENG.bin" -Force
-
-# Check for Python
-Write-Host "[*] Checking for Python..." -ForegroundColor Cyan
-$pythonCmd = $null
-if (Get-Command python3 -ErrorAction SilentlyContinue) {
-    $pythonCmd = "python3"
-} elseif (Get-Command python -ErrorAction SilentlyContinue) {
-    $pythonCmd = "python"
-} else {
-    Write-Host "[ERROR] Python not found!" -ForegroundColor Red
-    Write-Host "Please install Python 3.x from https://www.python.org/" -ForegroundColor Yellow
-    exit 1
-}
-
-Write-Host "[OK] Found Python: $pythonCmd" -ForegroundColor Green
-
-# Run the patcher script
-Write-Host ""
-Write-Host "[*] Running firmware patcher..." -ForegroundColor Cyan
-Write-Host "================================================================" -ForegroundColor Cyan
-Write-Host ""
-
-& $pythonCmd create_perfect_firmware.py
-
-if ($LASTEXITCODE -ne 0) {
+if (-not $TK11Exe) {
+    Write-Host "[!] ERROR: TK11.exe not found in $OriginalDir" -ForegroundColor Red
     Write-Host ""
-    Write-Host "[ERROR] Firmware patcher failed!" -ForegroundColor Red
+    Write-Host "Please download and place TK11.exe:" -ForegroundColor Yellow
+    Write-Host "  URL: https://itistesla.com/ai/TK11.exe"
+    Write-Host "  Location: $OriginalDir\"
+    Write-Host ""
     exit 1
 }
 
+Write-Host "[✓] Found firmware: $($FirmwareFile.Name)" -ForegroundColor Green
+Write-Host "[✓] Found TK11.exe: $($TK11Exe.Name)" -ForegroundColor Green
 Write-Host ""
-Write-Host "================================================================" -ForegroundColor Cyan
-Write-Host "[SUCCESS] All firmware variants created!" -ForegroundColor Green
-Write-Host "================================================================" -ForegroundColor Cyan
+
+# Generate patched firmware
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Step 1: Generating Patched Firmware" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Output directory: patched_firmware_final\" -ForegroundColor Green
+
+$PythonScript = Join-Path $ScriptDir "generate_patched_firmware.py"
+
+try {
+    python $PythonScript
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host ""
+        Write-Host "[✓] Patched firmware variants created successfully!" -ForegroundColor Green
+    } else {
+        throw "Python script returned error code: $LASTEXITCODE"
+    }
+} catch {
+    Write-Host ""
+    Write-Host "[!] ERROR: Firmware patching failed!" -ForegroundColor Red
+    Write-Host $_.Exception.Message -ForegroundColor Red
+    exit 1
+}
+
+# Prepare software patching instructions
 Write-Host ""
-Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "1. Patch TK11.exe using dnSpy" -ForegroundColor Yellow
-Write-Host "   Instructions: bin\scripts\patch_tk11_updata_method.cs" -ForegroundColor Yellow
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Step 2: Patching TK11.exe" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "2. Test firmware variants:" -ForegroundColor Yellow
-Write-Host "   - Open patched TK11.exe" -ForegroundColor Yellow
-Write-Host "   - Load: patched_firmware_final\TK11_PATCHED_v3_minimal.bin" -ForegroundColor Yellow
-Write-Host "   - Flash to radio" -ForegroundColor Yellow
+Write-Host "[*] TK11.exe must be patched manually using dnSpy" -ForegroundColor Yellow
 Write-Host ""
-Write-Host "Good luck! 73! 📻" -ForegroundColor Cyan
+Write-Host "Instructions:"
+Write-Host "  1. Open dnSpy (Windows tool)"
+Write-Host "  2. Load TK11.exe from: $OriginalDir\"
+Write-Host "  3. Follow instructions in: $ScriptDir\patch_tk11_updata_method.cs"
+Write-Host "  4. Save patched version to: $SoftwareDir\TK11_PATCHED.exe"
+Write-Host ""
+Write-Host "Detailed guide: See README.md in bin\ folder"
+Write-Host ""
+
+# Copy original files to software dir for reference
+New-Item -ItemType Directory -Force -Path $SoftwareDir | Out-Null
+Copy-Item -Path $TK11Exe.FullName -Destination (Join-Path $SoftwareDir "TK11_ORIGINAL.exe") -Force
+Write-Host "[✓] Original TK11.exe copied to: $SoftwareDir\TK11_ORIGINAL.exe" -ForegroundColor Green
+Write-Host ""
+
+# Summary
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Summary" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "[✓] Firmware patching: COMPLETE" -ForegroundColor Green
+Write-Host "    Location: $FirmwareDir\"
+Write-Host ""
+Write-Host "[!] Software patching: MANUAL STEP REQUIRED" -ForegroundColor Yellow
+Write-Host "    See: $ScriptDir\patch_tk11_updata_method.cs"
+Write-Host ""
+Write-Host "[*] Next steps:" -ForegroundColor Cyan
+Write-Host "    1. Patch TK11.exe using dnSpy (see instructions)"
+Write-Host "    2. Test with TK11_PATCHED_v3_minimal.bin first"
+Write-Host "    3. Flash to radio"
+Write-Host "    4. Test USB TX mode"
+Write-Host ""
+Write-Host "Good luck! 73! 📻" -ForegroundColor Green
+Write-Host ""

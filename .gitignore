@@ -12,10 +12,8 @@ patched_firmware/
 patched_tk11_exe/
 
 # Binary files
-*.exe
 *.bin
 *.dll
-*.dat
 
 # Screenshots
 *.png

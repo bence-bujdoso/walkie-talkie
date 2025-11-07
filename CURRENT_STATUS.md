@@ -1,8 +1,9 @@
 # 🎯 TK11 USB TX Unlock - Current Status
 
-**Date:** 2025-11-05
-**Progress:** 95% Complete
-**Phase:** Firmware Variant Testing
+**Date:** 2025-11-07
+**Progress:** 90% Complete
+**Phase:** Level 3 Bypass Required
+**Issue:** "Write Fail" error after validation bypass
 
 ---
 
@@ -37,19 +38,26 @@
 
 ## 🔄 IN PROGRESS
 
-### Firmware Variant Testing (12.5%)
+### Level 3 Bypass Required
 
-**Status:** 1 of 8 variants tested
+**Current Issue:**
+- ✅ Level 1-2 bypass working (validation bypassed popup shows)
+- ❌ Level 3 bypass needed (downloadFileEx method)
+- ❌ Getting "Write Fail" error after clicking OK on validation popup
 
-| # | Firmware | Status | Result |
-|---|----------|--------|--------|
-| 1 | v3_minimal.bin | ❌ Tested | Write Fail |
-| 2 | v1_simple_crc16xmodem.bin | ⏳ **NEXT** | - |
-| 3 | v4_end_of_file.bin | ⏳ Pending | - |
-| 4 | v2_crc16ibm.bin | ⏳ Pending | - |
-| 5-8 | v4_header_*.bin | ⏳ Pending | - |
+**Root Cause:**
+- Bootloader handshake check in `downloadFileEx()` is failing
+- Returns `false`, causing "Write Fail" popup
+- All firmware variants will fail without Level 3 bypass
 
-**Next action:** Test v1_simple_crc16xmodem.bin
+**Solution:** Apply Level 3 bypass to force bootloader handshake success
+
+**Files to Use:**
+- `WRITE_FAIL_SOLUTION.md` - Complete step-by-step guide
+- `LEVEL3_BYPASS_DETAILED.md` - Extended documentation
+- `bin/scripts/patch_tk11_downloadfileex_method.cs` - Code reference
+
+**Next Action:** Follow instructions in `WRITE_FAIL_SOLUTION.md` to apply Level 3 bypass
 
 ---
 
@@ -153,24 +161,28 @@ archive/
 
 ### For You (User)
 
-**IMMEDIATE:**
+**IMMEDIATE - Apply Level 3 Bypass:**
 ```
-1. Open TK11.exe
-2. Load: patched_firmware_final\TK11_PATCHED_v1_simple_crc16xmodem.bin
+1. Open TK11_PATCHED.exe in dnSpy
+2. Navigate to: K7 → wfm_progress → downloadFileEx(byte[] allBuffer)
+3. Right-click → "Edit Method (C#)..."
+4. Find: if (!flag2) { return false; }
+5. Replace with bypass code (see WRITE_FAIL_SOLUTION.md)
+6. Click "Compile"
+7. File → Save Module → TK11_PATCHED_LEVEL3.exe
+```
+
+**THEN TEST:**
+```
+1. Run TK11_PATCHED_LEVEL3.exe
+2. Load any patched firmware
 3. Connect radio
 4. Click "Write"
-5. Report: Success or Fail?
+5. Should see "Bootloader handshake bypassed!" popup
+6. Flash should proceed
 ```
 
-**IF SUCCESS:**
-- Wait for radio restart
-- Follow QUICKSTART.md Step 3
-- Test USB TX on K38
-
-**IF FAIL:**
-- Try next variant (v4_end_of_file.bin)
-- Continue systematically through list
-- See FIRMWARE_TESTING.md
+**DETAILED GUIDE:** See `WRITE_FAIL_SOLUTION.md` for complete step-by-step instructions
 
 ### For Recovery
 
