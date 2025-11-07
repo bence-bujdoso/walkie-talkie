@@ -1,6 +1,10 @@
 # TK11 USB TX Unlock Project
 
-**Status:** ✅ **95% COMPLETE** - Software validation bypass successful, testing firmware variants
+**Status:** ⚠️ **90% COMPLETE** - Level 3 bypass required to fix "Write Fail" error
+
+**Current Issue:** Getting "Write Fail" error after validation bypass popup
+
+**Solution:** Apply Level 3 bypass → See `WRITE_FAIL_SOLUTION.md` or `QUICK_FIX_WRITE_FAIL.md`
 
 ---
 
@@ -15,13 +19,13 @@ Enable USB (Upper Sideband) transmission on the TK11 handheld radio's 11-meter b
 ### ✅ COMPLETED
 - [x] Reverse engineering of TK11 firmware format
 - [x] Identification of TX unlock location (offset 0x314D)
-- [x] TK11.exe decompilation and validation bypass
+- [x] TK11.exe decompilation and validation bypass (Level 1-2)
 - [x] Creation of 8 patched firmware variants
 - [x] **TK11.exe validation bypass confirmed working**
 
 ### 🔄 IN PROGRESS
-- [ ] Testing firmware variants to find bootloader-compatible format
-- [ ] Current: v3_minimal tested (rejected), testing v1 next
+- [ ] **Apply Level 3 bypass to fix "Write Fail" error**
+- [ ] Bootloader handshake bypass required in downloadFileEx method
 
 ### ⏳ PENDING
 - [ ] Flash working firmware variant to radio
@@ -29,47 +33,85 @@ Enable USB (Upper Sideband) transmission on the TK11 handheld radio's 11-meter b
 
 ---
 
-## 🚀 Quick Start (5 Minutes)
+## ⚠️ CURRENT ISSUE: "Write Fail" Error
+
+**Symptoms:**
+1. Firmware loads successfully ✅
+2. See "validation bypassed" popup ✅
+3. Click OK
+4. Get "Write Fail" error ❌
+
+**Root Cause:**
+- Level 1-2 bypass working (Updata method)
+- Level 3 bypass needed (downloadFileEx method)
+- Bootloader handshake check is failing
+
+**Solution:**
+→ **Quick fix (5 min):** See `QUICK_FIX_WRITE_FAIL.md`
+→ **Detailed guide:** See `WRITE_FAIL_SOLUTION.md`
+→ **Technical docs:** See `LEVEL3_BYPASS_DETAILED.md`
+
+---
+
+## 🚀 Quick Start
 
 ### What You Need
 - TK11 radio with USB cable
-- Windows PC with TK11.exe
+- Windows PC
+- dnSpy (for applying Level 3 bypass)
 - Patched firmware files (included)
 - 50Ω dummy load (REQUIRED for safety)
 
 ### Steps
 
-**1. Files are ready:**
-- ✅ TK11.exe (373 KB) - Modified version active
-- ✅ 8 firmware variants in `patched_firmware_final/`
+**1. Apply Level 3 Bypass (REQUIRED - 5 minutes):**
 
-**2. Test firmware variants:**
+See `QUICK_FIX_WRITE_FAIL.md` for detailed steps:
 ```
-1. Open TK11.exe
-2. Load: patched_firmware_final\TK11_PATCHED_v1_simple_crc16xmodem.bin
-3. Click "Write" and observe result
-4. If "Write Fail", try next variant
-5. Repeat until "Write Success"
+1. Open TK11_PATCHED.exe in dnSpy
+2. Edit downloadFileEx method
+3. Add bootloader bypass code
+4. Save as TK11_PATCHED_LEVEL3.exe
 ```
 
-**3. When successful:**
+**2. Flash Firmware:**
+```
+1. Run TK11_PATCHED_LEVEL3.exe
+2. Load any patched firmware from patched_firmware_final/
+3. Connect radio via USB
+4. Click "Write"
+5. Should see "Bootloader handshake bypassed!" popup
+6. Wait for flash to complete
+```
+
+**3. Test USB TX Mode:**
 - Radio will restart automatically
 - Navigate to K38 channel (27.385 MHz)
 - Press PTT with dummy load connected
 - Verify NO "DISABLE" message appears
 - **SUCCESS!** 🎉
 
+**Need help?** See `WRITE_FAIL_SOLUTION.md` for complete guide
+
 ---
 
 ## 📁 Essential Files
 
+### 🔥 PRIORITY - Fix "Write Fail" Error
+```
+QUICK_FIX_WRITE_FAIL.md            ← ⭐ START HERE - 5-minute fix
+WRITE_FAIL_SOLUTION.md             ← Complete detailed guide
+LEVEL3_BYPASS_DETAILED.md          ← Technical documentation
+CURRENT_STATUS.md                  ← Project status & next steps
+```
+
 ### For Users
 ```
-TK11.exe                           ← Modified software (373 KB)
+TK11.exe                           ← Modified software (373 KB, Level 1-2)
 patched_firmware_final/            ← 8 firmware variants to test
-├── TK11_PATCHED_v1_simple_crc16xmodem.bin  ← Try this first
+├── TK11_PATCHED_v1_simple_crc16xmodem.bin
 ├── TK11_PATCHED_v2_crc16ibm.bin
-├── TK11_PATCHED_v3_minimal.bin             ← Tested: Failed
+├── TK11_PATCHED_v3_minimal.bin
 ├── TK11_PATCHED_v4_end_of_file.bin
 └── TK11_PATCHED_v4_header_*.bin (4 files)
 
@@ -77,7 +119,13 @@ QUICKSTART.md                      ← Simple 5-step guide
 FIRMWARE_TESTING.md                ← Systematic testing procedure
 ```
 
-### For Reference
+### Code References
+```
+bin/scripts/patch_tk11_updata_method.cs         ← Level 1-2 bypass code
+bin/scripts/patch_tk11_downloadfileex_method.cs ← Level 3 bypass code
+```
+
+### Technical Documentation
 ```
 COMPLETE_TK11_BYPASS.md            ← How TK11.exe was patched
 FIRMWARE_FLASH_GUIDE.md            ← Safety guide for flashing
